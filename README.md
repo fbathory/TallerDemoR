@@ -22,4 +22,4 @@ Docentes:
 
 - Florencia Bathory. Socióloga (UBA) y Mg. en Demografía Social (UNLu). Mail: *florencia.bathory@gmail.com*.
 
-Los materiales de este curso fueron inicialmente mentados y desarrollados por [Iván Williams](https://(https://github.com/IvanWilli).
+Los materiales de este curso fueron inicialmente mentados y desarrollados por [Iván Williams](https://github.com/IvanWilli).
