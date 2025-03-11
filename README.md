@@ -1,6 +1,6 @@
 # Taller de R aplicado a la demografía
 
-Materiales para el taller de **R aplicado a la demografía** en la Universidad Nacional de Luján (Buenos Aires, Argentina), durante noviembre y diciembre de 2023 (7 encuentros). El objetivo del taller es que los alumnos y alumnas den sus primeros pasos en la herramienta enfocándose en aplicaciones demográficas. 
+Materiales para el taller de **R aplicado a la demografía** en la Universidad Nacional de Luján (Buenos Aires, Argentina), durante marzo de 2025 (3 encuentros). El objetivo del taller es que los alumnos y alumnas den sus primeros pasos en la herramienta enfocándose en aplicaciones demográficas. 
 
 Unidades:
 
@@ -20,6 +20,5 @@ Docentes:
 
 - Ayelén Martinez. Socióloga (UBA) y Esp. en Demografía Social (UNLu). Mail: *ayemartinezn@gmail.com*.
 
-- Florencia Bathory. Socióloga (UBA) y Esp. en Demografía Social (UNLu). Mail: *florencia.bathory@gmail.com*.
+- Florencia Bathory. Socióloga (UBA) y Mg. en Demografía Social (UNLu). Mail: *florencia.bathory@gmail.com*.
 
-- Iván Williams. Actuario (UBA) y Mag. en Demografía Social (UNLu). Mail: *act.ivanwilliams@gmail.com*
