@@ -10,11 +10,6 @@ Unidades:
 
 3 - Visualización con `ggplot` (*pirámides, Lexis y demases*)
 
-4 - Funciones (*un poco de análisis demográfico*)
-
-5 - R Markdown (*un reporte demográfico*)
-
-El desarrollo del taller puede seguirse desde [aquí](https://fbathory.github.io/TallerDemoR/).
 
 Docentes:
 

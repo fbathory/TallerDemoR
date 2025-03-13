@@ -2,7 +2,7 @@
 title: |
   | \vspace{1.5cm} \LARGE\textbf{Taller de R aplicado al análisis demográfico}\vspace{0.6cm}
   | Universidad Nacional de Luján
-date: "Noviembre 2023"
+date: "Marzo 2025"
 fontsize: 13pt
 output:
   pdf_document: default
