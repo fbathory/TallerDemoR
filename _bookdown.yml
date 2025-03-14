@@ -1,6 +1,7 @@
 book_filename: "talleR"
 rmd_files:
 - index.Rmd
+- 01-base.Rmd
 language:
   ui:
     chapter_name: ""

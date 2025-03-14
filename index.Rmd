@@ -34,10 +34,8 @@ Este sitio web contiene los materiales para las primeras clases de Análisis Dem
 
 Algunas cosas útiles:
 
--   El programa actualizado se puede encontrar [aquí](https://github.com/fbathory/TallerDemoR/tree/master/programa).
 -   Encuentra el código fuente de este sitio en [GitHub](https://github.com/fbathory/TallerDemoR/tree/master).
--   Los datos que utilizaremos se pueden encontrar en un [drive](https://drive.google.com/drive/folders/1wRmATJa1ZcCVk5gDodjtD1SYJLabjlvD?usp=sharing).
--   Los encuentros virtuales los haremos vía zoom en este [link](https://us06web.zoom.us/j/88249603426?pwd=sw7NItVGMUB6jm113eCb2Jta34rAoM.1).
+-   Los encuentros virtuales los haremos vía zoom en este [link](https://us06web.zoom.us/j/85692957947).
 
 Tengan en cuenta que esta página puede *cambiar* durante el curso, así que no te preocupes si notás algunos cambios. Podemos adaptar el contenido en función de la interacción que vayamos teniendo o corregir/agregar código a lo largo del camino.
 

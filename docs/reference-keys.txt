@@ -61,3 +61,6 @@ referencias
 tp
 hemos-llegado
 consigna
+el-proyecto
+fig:unnamed-chunk-3
+fig:unnamed-chunk-4

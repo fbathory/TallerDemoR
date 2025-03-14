@@ -1,9 +1,10 @@
 ---
-title: "Taller de R aplicado a la Demografía"
+title: |
+  Análisis Demográfico III - UNIDAD 0: Introducción al análisis demográfico en R
 subtitle: "Introducción"
-author: "Ayelén Martinez, Florencia Bathory e Iván Williams"
+author: "Ayelén Martinez y Florencia Bathory"
 institute: "Universidad Nacional de Luján<br/>Maestría y Especialización en Demografía Social"
-date: "Noviembre 2023"
+date: "Marzo 2025"
 output:
   xaringan::moon_reader:
     self_contained: true
@@ -57,65 +58,65 @@ include_graphics("https://ivandigital.net/wp-content/uploads/2021/02/Ivan-Digita
 .pull-left[
 1 - **Introducción y objetos principales**
   - Proyectos + R base + operaciones
-  - Un censista que sabe R
+  - Unx demógrafx que sabe R
 
 2 - **Lectura y manipulación de datos**
   - `dplyr`. Mundo [tidyverse](https://www.tidyverse.org/)
   - Resumen y transformación de datos
-  - Un censo en R
+  - Una encuesta en R
 
 3 - **Visualización**
   - `ggplot`
-  - Pirámides + Lexis + Mapas
+  - Pirámides + Lexis
 ]
 
---
+<!-- -- -->
 
-.pull-right[
-4 - **Funciones para el *análisis demográfico***
-  - Específicas por componente
-  - Pauqetes demográficos
+<!-- .pull-right[ -->
+<!-- 4 - **Funciones para el *análisis demográfico*** -->
+<!--   - Específicas por componente -->
+<!--   - Pauqetes demográficos -->
 
-5 - **Reportes dinámicos**
-  - *R markdown*: reportes reproducibles en entorno R
-]
-    
----
+<!-- 5 - **Reportes dinámicos** -->
+<!--   - *R markdown*: reportes reproducibles en entorno R -->
+<!-- ] -->
 
-# Calendario
+<!-- --- -->
 
-```{r, fig.height=7, fig.width=12}
-color_days = "#ed9f2b"
-weeknames <- c("L","Ma","Mi","J","V","S","D")
-nov <- calendR(year = 2023, month = 11,        # Year and month
-        start = "M",                   # Start the week on Monday
-        text = c("Intro/U1", "U1/U2", # Add text (only for monthly calendars)
-                 "U2","U3"), 
-        text.pos = c(7,  14, 21, 28),       # Days of the month where to put the texts 
-        text.size = 4.5,    
-        text.col = 1,
-        special.days = c(7,  14, 21, 28),
-        special.col = color_days,
-        low.col = "white",
-        orientation = "l",
-        weeknames = weeknames,
-        title = "Nov") 
-dec <- calendR(year = 2023, month = 12,        # Year and month
-        start = "M",                   # Start the week on Monday
-        text = c("U4", "U5"), 
-        text.pos = c(5, 12),       # Days of the month where to put the texts 
-        text.size = 4.5,               # Font size of the text
-        text.col = 1,
-        special.days = c(5, 12),
-        special.col = color_days,
-        low.col = "white",
-        orientation = "l",
-        weeknames = weeknames,
-        title = "Dic") 
-wrap_plots(nov,dec)
-```
+<!-- # Calendario -->
 
-Presencial: 7-Nov & 12-Dic
+<!-- ```{r, fig.height=7, fig.width=12} -->
+<!-- color_days = "#ed9f2b" -->
+<!-- weeknames <- c("L","Ma","Mi","J","V","S","D") -->
+<!-- mar <- calendR(year = 2025, month = 3,        # Year and month -->
+<!--         start = "M",                   # Start the week on Monday -->
+<!--         text = c("Intro/U1", "U2", # Add text (only for monthly calendars) -->
+<!--                  "U3"), -->
+<!--         text.pos = c(18,25),       # Days of the month where to put the texts -->
+<!--         text.size = 4.5, -->
+<!--         text.col = 1, -->
+<!--         special.days = c(7,  14, 21, 28), -->
+<!--         special.col = color_days, -->
+<!--         low.col = "white", -->
+<!--         orientation = "l", -->
+<!--         weeknames = weeknames, -->
+<!--         title = "Nov") -->
+<!-- dec <- calendR(year = 2023, month = 12,        # Year and month -->
+<!--         start = "M",                   # Start the week on Monday -->
+<!--         text = c("U4", "U5"), -->
+<!--         text.pos = c(5, 12),       # Days of the month where to put the texts -->
+<!--         text.size = 4.5,               # Font size of the text -->
+<!--         text.col = 1, -->
+<!--         special.days = c(5, 12), -->
+<!--         special.col = color_days, -->
+<!--         low.col = "white", -->
+<!--         orientation = "l", -->
+<!--         weeknames = weeknames, -->
+<!--         title = "Dic") -->
+<!-- wrap_plots(nov,dec) -->
+<!-- ``` -->
+
+<!-- Presencial: 7-Nov & 12-Dic -->
 
 ---
 
@@ -124,16 +125,16 @@ Presencial: 7-Nov & 12-Dic
 ## Estructura
 
 - Clases
-  - ~2 horas de recorrido temático, programando a la par
+  - ~2,5 horas de recorrido temático, programando a la par
   - ~30 minutos de resolución de ejercicios
-- Aprobación del taller: TP final
+- Trabajo práctico luego de las 3 clases
 
 ## Set up inicial    
 
 - `r fa("r-project")` + `r fa("registered")`  instalados  
 - Conexión a internet (clases virtuales)  
-- Materiales: en general todo en `r fa("github")` [Github](https://github.com/IvanWilli/TallerDemoR). Eventualmente algo de datos pesados en la nube `r fa("google-drive")`.
-- `r fa("question")`: para dudas/intercambios utilizaremos [issues](https://github.com/IvanWilli/TallerDemoR/issues) de github. Es necesario registrarse.
+- Materiales: en general todo en `r fa("github")` [Github](https://github.com/fbathory/TallerDemoR). Eventualmente algo de datos pesados en la nube `r fa("google-drive")`.
+- `r fa("question")`: para dudas/intercambios utilizaremos el Aula Virtual
 
 ---
 
@@ -227,7 +228,7 @@ library(tidyverse)
 
 - Compartir: "alguien ya resolvió tu problema".
 - Requerimientos CRAN (Comprehensive R Archive Network): código + tests + documentación + ayuda.
-- Solo en CRAN hay más de 19 mil. [Y creciendo día a día](https://rviews.rstudio.com/)
+- Solo en CRAN hay más de 22 mil. [Y creciendo día a día](https://rviews.rstudio.com/)
 - La comunidad **legitima** `r fa("users")`.
 - Cualquiera puede hacer un paquete; otros usuarios te lo agradecerán (y mejorarán). 
 
@@ -309,6 +310,8 @@ include_graphics("figs/flow1.png")
 - Difusión/comunicación de contenido:  
   - [Exceso de Mortalidad](https://mpidr.shinyapps.io/stmortality/)  
   - [Indicadores](https://www.indec.gob.ar/indec/web/Institucional-Indec-IndicadoresDemograficos)
+  - [Tablero de indicadores de las personas mayores](https://www.indec.gob.ar/indec/web/Nivel4-Tema-2-21-130)
+  - [Sistema Integrado de Indicadores Sociales](http://shiny.indec.gob.ar/sies)
   - [Talleres/Seminarios/presentaciones](https://github.com/ubasellini/IDEM117-AdvancesMortalityForecasting)
 
 ---
