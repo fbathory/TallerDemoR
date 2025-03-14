@@ -39,7 +39,7 @@ Algunas cosas útiles:
 
 Tengan en cuenta que esta página puede *cambiar* durante el curso, así que no te preocupes si notás algunos cambios. Podemos adaptar el contenido en función de la interacción que vayamos teniendo o corregir/agregar código a lo largo del camino.
 
-Esperamos que disfrutes el taller y te sea útil.
+Esperamos que disfrutes el taller y les sea útil.
 
 Ayelén y Florencia
 
@@ -47,7 +47,7 @@ Ayelén y Florencia
 
 ## PrepaRándonos
 
-El objetivo de estas primeras clases es que puedas dar tus primeros pasos en la herramienta y puedas aplicar allí las principales técnicas de la demografía. Luego, Olinca Páez tomará la posta con los contenidos específicos de Análisis Demográfico. 
+El objetivo de estas primeras clases es que puedas dar tus primeros pasos en la herramienta y puedas aplicar allí las principales técnicas de la demografía. Luego, [Olinca Páez](https://www.researchgate.net/profile/Olinca-Paez) [`r fa("linkedin")`](https://www.linkedin.com/in/olinca-p%C3%A1ez/) tomará la posta con los contenidos específicos de Análisis Demográfico. 
 
 Las clases serán 100% virtuales y utilizaremos el zoom provisto anteriormente. Para nuestro primer día sería bueno tener lista tu compu en lo que atañe a la instalación del programa, de los paquetes y otras cuestiones mínimas, que si bien vamos a poder ayudarte online, nos ahorraría tiempo para comenzar con los materiales.
 

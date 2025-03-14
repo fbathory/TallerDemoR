@@ -40,7 +40,7 @@ include_graphics("figs/censista.jpg")
 
 Por suerte nos fue asignada la siguiente vivienda. Son 6 miembros. ¿Cómo se listan los miembros del hogar en este formulario?
 
-```{r, echo=F, fig.cap="fuente: en base a https://www.indec.gob.ar/indec/web/Nivel3-Tema-2-41"}
+```{r, echo=F, fig.cap="fuente: EDER CABA 2019",out.width="100%"}
 include_graphics("figs/HogarEDER.png")
 ```
 
@@ -176,7 +176,7 @@ nombre_jefe     <- "Horacio"
 nombre_conyuge  <- "Jose"
 nombre_hijos    <- c("Iván", "Facundo", "Cristian", "Florencia")
 nombre          <- c(nombre_jefe, nombre_conyuge, nombre_hijos) # unión de vectores mediante c(), los "apilo"
-edad            <- c(55, 53, 29, 28, 21, 21)
+edad            <- c(55, 53, 29, 28, 21, 31)
 f_nacim         <- as.Date(c("1970/01/01", "1971/11/05", "1995/11/08", "1997/01/21", "2003/10/23", "1993/11/19"))
 sexo            <- c("v", "m", "v", NA, "v", "m")
 autoRespondente <- c(T, rep(F, 5)) # repetí un valor 5 veces
