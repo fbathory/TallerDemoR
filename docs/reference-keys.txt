@@ -16,3 +16,5 @@ actividad-2
 listas
 actividad-3
 referencias-y-materiales-adicionales
+fig:unnamed-chunk-3
+fig:unnamed-chunk-4
