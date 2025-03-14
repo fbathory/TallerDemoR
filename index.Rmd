@@ -39,7 +39,7 @@ Algunas cosas útiles:
 
 Tengan en cuenta que esta página puede *cambiar* durante el curso, así que no te preocupes si notás algunos cambios. Podemos adaptar el contenido en función de la interacción que vayamos teniendo o corregir/agregar código a lo largo del camino.
 
-Esperamos que disfrutes el taller y les sea útil.
+Esperamos que disfrutes estos encuentros y que te sean útiles.
 
 Ayelén y Florencia
 
@@ -74,13 +74,11 @@ install.packages(c("tidyverse", "devtools", "foreign", "eph", "plotly", "gapmind
                    "psych", "tidyr", "broom"))
 ```
 
-### Foro
+### Contactos
 
-Para comunicarnos durante la semana utilizaremos el apartado de [issues](https://github.com/IvanWilli/TallerDemoR/issues) del repositorio en github, que permite escribir [propuestas/sugerencias](https://docs.github.com/es/issues/tracking-your-work-with-issues/creating-an-issue) incluyendo pedazos de código (el lenguaje es [markdown](https://en.wikipedia.org/wiki/Markdown), que veremos en la última unidad). Para esto debes crearte un usuario. El uso de este espacio es **opcional**: si bien será útil para discutir contenido en la semana, si hay comunicaciones importantes de tipo administrativo se harán por mail.
+Si estás sin tiempo, lo **prioritario** es la instalación previa de *R* y *RStudio*. 
 
-### Por último
-
-Si estás sin tiempo, lo **prioritario** es la instalación previa de *R* y *RStudio*. Cualquier cosa nos podés contactar por mail:
+Para comunicarnos durante la semana, utilizaremos el *Aula Virtual*. De todos modos, dejamos nuestros correos electrónicos a disposición para cualquier duda o consulta:
 
 -   Ayelén Martinez: [ayemartinezn\@gmail.com](mailto:ayemartinezn@gmail.com){.email}
 
