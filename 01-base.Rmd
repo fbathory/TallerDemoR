@@ -130,7 +130,6 @@ sexo <- NA
 is.na(sexo)
 ```
 
-Tu yo del futuro, otros humanos y múltiples computadoras leerán tu código: hablemos de algunas buenas practicas (aquí [algunas](Humanos y robots)).
 
 ### Actividad
 
