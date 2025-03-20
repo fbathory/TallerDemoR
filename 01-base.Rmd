@@ -484,4 +484,8 @@ lista_de_hogares <- list(hogar_1 = rbind(hogar, hogar_luis))
 
 - [Hoja de ayuda](https://raw.githubusercontent.com/rstudio/cheatsheets/main/translations/spanish/base-r_es.pdf)  
 
-- [Libros en español](https://statsanddatasci.netlify.com/post/libros-en-espa%C3%B1ol/)  
+- Libros en español
+
+  - [Ciencia de Datos para Gente Sociable](https://bitsandbricks.github.io/ciencia_de_datos_gente_sociable/) - Antonio Vazquez Brust
+  
+  - [Ciencia de datos para curiosos](https://martinmontane.github.io/CienciaDeDatosBook/) - Martin Montane
