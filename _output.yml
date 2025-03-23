@@ -4,7 +4,7 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./">Taller de R aplicado a la demografía</a></li>
+        <li><a href="./">Análisis Demográfico III: Unidad 0</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     download: ["rmd"]
