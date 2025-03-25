@@ -358,7 +358,7 @@ Ahora sí, obtegamos la edad promedio de las personas encuestadas según relaci�
 edad_relpar <- eder_personas %>% 
                     group_by(p4_descripc) %>% 
                     summarise(edad_media = mean(p3b))
-edad_relpar
+
 ```
 
 Parece una tabla grande (¿cuántas filas tiene?). Si querés *mirar* la tabla: `View(tabla)`.
@@ -430,7 +430,6 @@ selec_jefcony_sex <- eder_mayores %>%
                             edad_media_alt = mean(edad_altern)) |> 
   select(p2, e_nivel, edad_media_alt)
 
-selec_jefcony_sex
 ```
 
 > Si tuviéramos que relatar lo que estamos haciendo, sería algo del tipo: "tomá la eder, filtrame para traer solo jefxs y cónyuges que hayan contestado la retrospectiva, agrupámelos por estas variables y calculá el indicador para cada grupo; finalmente selecciona qué quieres mostrar". Es una *¡composición de funciones!*.
@@ -497,9 +496,7 @@ a) Podrías encontrar las viviendas (sus ID) que poseen más de un hogar? ¿Cuá
 a) Crear una variable codificada para mayor de edad de carácter numérico (1 = mayor, 0 = menor) y su descripción ("Mayor de edad", "Menor de edad")
 
 ```{r, include=F}
-caba %>% count(nativo)
-caba <- caba %>% 
-  mutate(nativo = nativo - 1)
+
 ```
 
 a) Filtra por elegibilidad para contestar la encuesta (**Nota**: recordar que para ser elegible para la encuesta la persona debía haber nacido en las cohortes 1948-1952, 1968-1972 o 1978-1982), y mostrar el total de individuos (utilizando `n()`) por cohorte
