@@ -23,7 +23,7 @@
 <meta name="author" content="Ayelén Martinez, Florencia Bathory" />
 
 
-<meta name="date" content="2025-03-20" />
+<meta name="date" content="2025-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="dplyr.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -172,6 +172,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#referencias-y-materiales-adicionales"><i class="fa fa-check"></i><b>2.5</b> Referencias y materiales adicionales</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>3</b> dplyr</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dplyr.html"><a href="dplyr.html#lectura-de-datos"><i class="fa fa-check"></i><b>3.1</b> Lectura de datos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dplyr.html"><a href="dplyr.html#acceso-a-archivos-no-locales"><i class="fa fa-check"></i><b>3.1.1</b> Acceso a archivos no locales</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dplyr.html"><a href="dplyr.html#actividad-4"><i class="fa fa-check"></i><b>3.1.2</b> Actividad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dplyr.html"><a href="dplyr.html#dplyr-1"><i class="fa fa-check"></i><b>3.2</b> dplyr</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dplyr.html"><a href="dplyr.html#seleccionar-select-renombrar-rename"><i class="fa fa-check"></i><b>3.2.1</b> seleccionar (<strong>select</strong>), renombrar (<strong>rename</strong>)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dplyr.html"><a href="dplyr.html#actividad-5"><i class="fa fa-check"></i><b>3.2.2</b> Actividad</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dplyr.html"><a href="dplyr.html#resumir-summarise-por-grupos-group_by"><i class="fa fa-check"></i><b>3.2.3</b> resumir (<strong>summarise</strong>) por grupos (<strong>group_by</strong>)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="dplyr.html"><a href="dplyr.html#transformar-mutate-filtrar-filter-ordenar-arrange"><i class="fa fa-check"></i><b>3.2.4</b> transformar (<strong>mutate</strong>), filtrar (<strong>filter</strong>), ordenar (<strong>arrange</strong>)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="dplyr.html"><a href="dplyr.html#actividad-6"><i class="fa fa-check"></i><b>3.2.5</b> Actividad</a></li>
+<li class="chapter" data-level="3.2.6" data-path="dplyr.html"><a href="dplyr.html#recursos-adicionales"><i class="fa fa-check"></i><b>3.2.6</b> Recursos adicionales</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -204,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Para adentrarnos en las características de <strong>R</strong>, “entrevistaremos” un <strong>hogar</strong> en el marco de la Encuesta Demográfica Retrospectiva. Pero… ¿qué es un hogar? Es una unidad de análisis demográfica, definida en un marco operativo de encuesta o censo: <em>“se entiende por hogar una persona que vive sola o un grupo de personas que pueden o no estar emparentadas pero que comparten el presupuesto para los gastos de alimentación” (ONU, 2011)</em> (ojo, no confundir con <em>vivienda</em> y/o <em>familia</em>).</p>
 <p>Resulta que nos fue asignada determinada vivienda, con un solo hogar. Al llegar a la cuadra vemos lo siguiente…</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<img src="figs/censista.jpg" alt="Fuente: https://www.economist.com/books-and-arts/2020/04/16/a-lively-and-enlightening-history-of-the-census" width="640" />
+<img src="figs/censista.jpg" alt="Fuente: https://www.economist.com/books-and-arts/2020/04/16/a-lively-and-enlightening-history-of-the-census"  />
 <p class="caption">
 Figure 2.1: Fuente: <a href="https://www.economist.com/books-and-arts/2020/04/16/a-lively-and-enlightening-history-of-the-census" class="uri">https://www.economist.com/books-and-arts/2020/04/16/a-lively-and-enlightening-history-of-the-census</a>
 </p>
@@ -556,8 +573,8 @@ Se puede pedir ayuda consultando la documentación de las funciones:<code>?range
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
