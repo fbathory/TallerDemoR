@@ -29,7 +29,7 @@ library(fontawesome)
 library(knitr)
 ```
 
-Pero primero haremos un repaso por las distintas opciones de *lectura* de datos que nos ofrece R. Creemos una carpeta que se llame "data", donde dejemos las bases de datos disponibles en el [drive](https://drive.google.com/drive/folders/1wRmATJa1ZcCVk5gDodjtD1SYJLabjlvD?usp=sharing). Verifiquemos que tengamos todas las bases de datos correspondientes en la carpeta "Data" mediante `list.files()`.
+Pero primero haremos un repaso por las distintas opciones de *lectura* de datos que nos ofrece R. Creemos una carpeta que se llame "data", donde dejemos las bases de datos enviadas. Verifiquemos que tengamos todas las bases de datos correspondientes en la carpeta "data" mediante `list.files()`.
 
 ```{r, eval=F}
 list.files("data")
