@@ -518,7 +518,7 @@ a) Realiza lo anterior (filtrar y agrupar por cohorte y obtener el promedio de e
 
 ```
 
-a) En una sola sentencia obtén la edad mediana nivel educativo de las personas que contestaron la encuesta (utilizando `filter(retro == 1)`)
+a) En una sola sentencia obtené la edad mediana por nivel educativo de las personas que contestaron la encuesta (utilizando `filter(retro == 1)`)
 
 ```{r, include=F}
 
