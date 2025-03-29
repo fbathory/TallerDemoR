@@ -15,30 +15,19 @@ Sys.setlocale("LC_ALL", "Spanish_Spain.UTF-8")
 
 ## Consigna
 
-Realizar un reporte sobre las características demográficas de una provincia argentina que te interese, según los resultados del Censo 2022. Los datos los podés encontrar en [la web](https://censo.gob.ar/index.php/datos_definitivos/). Específicamente, se solicita:
+Realizar un reporte sobre las características de la base de datos y la población encuestada en la EDER. Específicamente, se solicita:
 
-* Crear un *Script* que procese la información necesaria y agregar breves lecturas en forma de comentarios.
-
-* Asignar un título al reporte que incluya la provincia seleccionada, tu nombre como autor/a, y el mes y año del reporte.
+* Crear un *Script* que procese la información necesaria e incluya comentarios que vayan explicando el paso a paso donde se obtiene la información que irá en el reporte.
 
 * Contenidos **mínimos** del cuerpo del script:
 
-Primero debes leer los datos censales directo desde R. En todos los casos es el archivo xlsx referido al Cuadro 4, que contiene población por sexo y edad. Va una ayuda para el caso de Total País, donde previamente ingresamos a la sección de [total país](https://censo.gob.ar/index.php/datos_definitivos_total_pais/), descargamos el archivo (en el caso de las provincias, cambia el nombre del archivo xlsx) y lo colocamos en la carpeta data:
-```{r, message=F, warning=F}
-library(readxl)
-total_pais_c2022 <- read_xlsx("data/c2022_tp_est_c4.xlsx", sheet = 3, range = "A4:E127")
-total_pais_c2022 <- total_pais_c2022 %>% 
-  # selecciono las variables que quiero y las renombro ahí mismo con select
-  select(Edad = 1, Mujer = 3, Hombre = 4) %>% 
-  # me quedo con las edades simples
-  filter(Edad %in% c(0:99, "100 y más")) 
-```
-
-
+Primero debés leer los datos de la EDER directo desde R (ya lo hemos hecho). 
 
 Luego agregar:
-    - Un párrafo inicial donde se explicite el objetivo del reporte como comentario. Incluir dato sobre la cantidad de población total y su peso en el total país.
-    - Mostrar la pirámide de población mediante el uso del paquete `ggplot2`. 
+    - Un párrafo inicial donde se explicite el objetivo del reporte como comentario. 
+    - Mostrar características básicas de la base de datos de la EDER.
+    - Comentar al menos 2 características de la población total encuestada y 2 de la población que realizó la encuesta retrospectiva. Acá podés elegir qué mostrar, pero al menos una de las características tiene que estar segmentada por grupos (puede ser sexo, grupo de edad, nivel educativo).
+    - Presentar resultados con etiquetas, no con códigos.
     - Calcular el índice de masculinidad por edad de la población de 0 a 80 años y realizar un gráfico de línea.
     - En un párrafo final describir brevemente qué te llamó la atención de lo observado.
     
