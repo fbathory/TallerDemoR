@@ -28,7 +28,8 @@ Luego agregar:
     - Mostrar características básicas de la base de datos de la EDER.
     - Comentar al menos 2 características de la población total encuestada y 2 de la población que realizó la encuesta retrospectiva. Acá podés elegir qué mostrar, pero al menos una de las características tiene que estar segmentada por grupos (puede ser sexo, grupo de edad, nivel educativo).
     - Presentar resultados con etiquetas, no con códigos.
-    - Calcular el índice de masculinidad por edad de la población de 0 a 80 años y realizar un gráfico de línea.
+    - Realizar un gráfico de barras que muestre alguna variable que te interese.
+    - Calcular el índice de masculinidad por edad de la población de 0 a 80 años y realizar un gráfico de línea (pista: quizás te sirve tener sexo en dos columnas separadas).
     - En un párrafo final describir brevemente qué te llamó la atención de lo observado.
     
 **¡IMPORTANTE!** 
