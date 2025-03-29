@@ -13,12 +13,6 @@ Sys.setlocale("LC_ALL", "Spanish_Spain.UTF-8")
 
 En esta sección vamos a explorar la utilidad de R para la visualización de contenido demográfico. En [Riffe y otros (2021)](https://www.demographic-research.org/volumes/vol44/36/default.htm) se publicó una colección de artículos sobre ejemplos de "buena" visualización en este tema. Allí reseña un poco de la historia (ver los gráficos de Perozzo `r fa("face-surprise")`) y se concluye con algunas recomendaciones a la hora de pensar cómo mostrar lo que queremos comunicar. Es interesante la distinción entre gráfico **exploratorio** y gráfico **explicativo**.
 
-En la unidad previa trabajamos con una muestra censal a nivel de registro. Aquí contaremos con una distribución por edad y sexo de la población censada en los dos últimos censos e iremos recorriendo distintas formas de visualizar su contenido. Tenemos un **objetivo**:
-
-```{r, results='hold',out.width="60%",echo=FALSE, fig.cap="https://fineartamerica.com/featured/walking-up-the-pyramid-kirt-tisdale.html?product=shower-curtain"}
-include_graphics("figs/walk_piramyd.jpg")
-```
-
 ## ggplot
 
 El paquete [ggplot](https://ggplot2.tidyverse.org/) del entorno *tidyverse* tiene sus fundamentos en la gramática de gráficos ([Wilkinson, 2005](https://link.springer.com/book/10.1007/0-387-28695-0)), entender que todo plot es una composición de elementos, más allá de su especificidad (dispersión de putnos, línea, torta, etc.). La idea es "generalizar" su construcción tal que un paquete no sea una colección de *casos especiales*, sino una forma particular de combinar elementos (capas). Ya lleva 10 años!
@@ -37,27 +31,28 @@ Todo gráfico esta compuesto, jearárquicamente, por:
 
 ```{r, include=F}
 getwd()
-library(readxl)
-N_Censo <- read_xlsx("Data/PoblCensal01y10.xlsx", sheet = 1)
+
 ```
 
-Obtengamos la población censal por provincia de los dos últimos censos, disponible en el archivo "PoblCensal01y10.xlsx". Seleccionemos CABA y veamos su distribución por edad en 2010 con **ggplot**. 
+Vamos a ver la distribución por edad de la EDER con **ggplot**. Para eso, primero vamos a calcular cuántas personas hay por edad. Recordemos que hay un código 9999 para valores desconocidos de edad
 
 ```{r}
-N_CABA <- N_Censo %>% 
-  filter(PROV_NOMBRE == "CIUDAD AUTONOMA DE BUENOS AIRES" & CENSO==2010)
+eder_dist <- eder_personas %>% 
+  filter(p3b <= 103)|> 
+  group_by(p3b) |> 
+  summarise(n = n())
 
 # genero un primer gráfico con los tres elementos básicos:
-ggplot(data = N_CABA,                 # data
-       aes(x = EDAD, y = VARON)) +    # estética
+ggplot(data = eder_dist,                 # data
+       aes(x = p3b, y = n)) +    # estética
        geom_line()                    # geometría
 ```
 
-Lo bueno de `>%>` es que puedo verbalizar también aquí!
+Lo bueno de `%>%` es que puedo verbalizar también aquí!
 ```{r, eval = F}
-N_CABA %>% 
-  ggplot(aes(x = EDAD, y = VARON)) + 
-  geom_line()
+eder_dist |> 
+  ggplot(aes(x = p3b, y = n)) +    # estética
+  geom_line() 
 ```
 
 
@@ -65,29 +60,28 @@ N_CABA %>%
 `ggplot` utiliza `+` en vez de ` %>% `. No es algo de lo que esté orgulloso su creador, pero tiene sus [razones](https://community.rstudio.com/t/why-cant-ggplot2-use/4372).
 :::
 
-Podemos compararla con otras provincias en 2010, como Formosa y Entre Ríos, distinguiéndolas por color (*estética*). Tomemos el caso de los varones. ¿Qué observaciones podemos hacer?
+Podemos separar mujeres y varones, distinguiéndolas por color (*estética*). Y vamos a sacar a la gente sin información de sexo.
 
 ```{r}
-# creo un vector con las seleccionadas, y filtro la base
-Provincias <- c("FORMOSA", "ENTRE RIOS", "CIUDAD AUTONOMA DE BUENOS AIRES")
-
-# filtro data
-N_Provs <- N_Censo %>% 
-  filter(PROV_NOMBRE %in% Provincias, CENSO==2010)
+eder_dist_s <- eder_personas %>% 
+  filter(p3b <= 103,
+         p2 %in% 1:2)|>
+  group_by(p2, p3b) |> # Agrupo también por sexo 
+  summarise(n = n())
 
 # genero un primer gráfico con los tres elementos básicos:
-ggplot(data = N_Provs,                                       # data
-       aes(x = EDAD, y = VARON, color = PROV_NOMBRE)) +      # estética
-       geom_line()                                           # geometría
+eder_dist_s |> 
+  ggplot(aes(x = p3b, y = n, color = factor(p2))) +    # estética
+  geom_line() 
 ```
 
 Podemos adicionar otra capa geométrica de puntos distinguiendo por *forma* (atributo estético adicional). Ya estamos en 4 dimensiones.
 
 ```{r}
-g_Provs <- ggplot(data = N_Provs, 
-                  aes(x= EDAD, y = MUJER, color = PROV_NOMBRE)) + 
-           geom_line() +
-           geom_point(aes(shape = PROV_NOMBRE))
+g_eder_sexo <- eder_dist_s |> 
+  ggplot(aes(x = p3b, y = n, color = factor(p2))) +    # estética
+  geom_line() +
+  geom_point(aes(shape = factor(p2)))
 ```
 
 Acabamos de crear un objeto: ¿de qué tipo es?. 
@@ -102,16 +96,16 @@ que...
 Agreguemos [un título, un subtítulo](https://ggplot2.tidyverse.org/reference/labs.html), modifiquemos el tamaño del punto, la posición y título de la leyenda, y  especifiquemos las marcas en el eje x:
 
 ```{r}
-g_Provs <- g_Provs +  # partimos del objeto anterior
-  labs(title = "Población de varones por edad. Año 2010",
-       subtitle = "Provincias seleccionadas",
-       caption = "Fuente: INDEC",
-       x = "Edad", y = "Varones") +
+g_eder_sexo <- g_eder_sexo +  # partimos del objeto anterior
+  labs(title = "Población por edad y sexo. EDER 2019",
+       subtitle = "CABA",
+       caption = "Fuente: IDECBA",
+       x = "Edad", y = "n") +
   theme(legend.position = "bottom", 
         legend.direction = "horizontal",
         legend.title = element_blank()) +
   scale_x_continuous(breaks = seq(0,100,10)) # ups!
-g_Provs
+g_eder_sexo
 ```
 
 Podemos definir una paleta de colores, cambiar la [temática](https://ggplot2.tidyverse.org/reference/theme.html) de fondo por una más simple y suavizar las series con algún modelo. Adicionalmente mediante [ggsave](https://ggplot2.tidyverse.org/reference/ggsave.html) podemos guardar el objeto como imágen en la extensión que se desee.
@@ -119,127 +113,145 @@ Podemos definir una paleta de colores, cambiar la [temática](https://ggplot2.ti
 ```{r, warning=FALSE}
 mi_paleta <- c("#000000", "#E69F00", "#56B4E9") # sistema Hexadecimal de colores
 
-g_Provs <- g_Provs +
+g_eder_sexo <- g_eder_sexo +
   scale_colour_manual(values = mi_paleta) +
   theme_bw() + 
   geom_smooth(method = 'loess', span=.5) # podés jugar con span (0,1)
 
-ggsave(filename = "g_Provs.pdf", plot = g_Provs)
+ggsave(filename = "g_eder_sexo.pdf", plot = g_eder_sexo, dpi = 150)
 
-g_Provs
+g_eder_sexo
 ```
 
 Podés encontrar [más colores y paletas prediseñadas](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/), temáticas [predefinidas](https://ggplot2.tidyverse.org/reference/ggtheme.html) o incluidas en paquetes como [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/), y formas de suavizar una serie continua (aquí utilizamos `loess`, por defecto, pero puede ser `lm`, de linear model).  
 
-Para continuar nuestro camino hacia la pirámide de población con `ggplot`, conviene que `Sexo` sea una única variable con dos categorías (una variable de tipo *factor*). Una buena idea: siempre tratar con **tidy** data! 
+También podemos mostrar, por ejemplo, la distribución por máximo nivel educativo (una variable de tipo *factor*). Una buena idea: siempre tratar con **tidy** data! 
 
 ```{r, results='hold',out.width="100%",echo=FALSE, fig.cap="https://github.com/allisonhorst/stats-illustrations"}
 include_graphics("figs/tidydata.jpg")
 ```
 
-Postulados:
+Lo que vamos a hacer ahora, y solo a fines de entender cómo se puede armar, es llegar a un data frame donde tengamos el sexo en las columnas, y el nivel educativo en las filas.
 
-- Cada *columna* es una variable.
-
-- Cada *fila* es una realización/observación de la unidad de análisis.
-
-- Cada *celda* es un valor observado, un dato.
-
-Para esto utlizaremos las funciones `pivot` (antiguamaente llamadas *gather* y *spread*, por si lo ves en la web). Leamos la hoja de ayuda (*cheat sheet*) de [tidyr](https://tidyr.tidyverse.org/) juntos, otro paquete del entorno `tidyverse`. Y quedémonos por el momento con Entre Ríos.
+Para esto utlizaremos las funciones `pivot` (antiguamaente llamadas *gather* y *spread*, por si lo ves en la web). Leamos la hoja de ayuda (*cheat sheet*) de [tidyr](https://tidyr.tidyverse.org/) juntos, otro paquete del entorno `tidyverse`. 
 
 
 ```{r}
-N_ER <- N_Provs %>% 
-              pivot_longer(cols = c(VARON, MUJER), names_to = "Sexo", values_to="N") %>% 
-              mutate(Sexo = as.factor(Sexo)) %>% 
-              filter(PROV_NOMBRE == "ENTRE RIOS") %>% 
-              select(-PROV_CODIGO) %>% 
-  arrange(CENSO, Sexo, EDAD)
-head(N_ER)
+eder_ned_sexo <- eder_personas %>% 
+  filter(p2 %in% 1:2, # Elimino los que no tienen asignado el sexo y el nivel educativo
+         e_nivel != 9) |> 
+  mutate(sexo = case_when(p2 == 1 ~ "Varón", # Recodifico
+                          p2 == 2 ~ "Mujer"),
+         e_nivel_desc = case_when(e_nivel == 0 ~ "No corresponde/asiste o asistió a escuelas especiales no primarias",
+                                  e_nivel == 1 ~ "Inicial",
+                                  e_nivel == 2 ~ "Primario incompleto",
+                                  e_nivel == 3 ~ "Primario completo",
+                                  e_nivel == 4 ~ "Secundario incompleto",
+                                  e_nivel == 5 ~ "Secundario completo",
+                                  e_nivel == 6 ~ "Superior / Universitario incompleto",
+                                  e_nivel == 7 ~ "Superior / Universitario completo y más",
+                                  e_nivel == 8 ~ "Sin instrucción")) |> 
+  select(sexo, e_nivel_desc) |> 
+  group_by(sexo, e_nivel_desc) |> 
+  summarise(n = n()) |> 
+  pivot_wider(names_from = sexo, values_from = n)%>% 
+  mutate(e_nivel_desc = factor(e_nivel_desc,
+                               levels = c("No corresponde/asiste o asistió a escuelas especiales no primarias",
+                                          "Inicial",
+                                          "Primario incompleto",
+                                          "Primario completo",
+                                          "Secundario incompleto",
+                                          "Secundario completo",
+                                          "Superior / Universitario incompleto",
+                                          "Superior / Universitario completo y más",
+                                          "Sin instrucción"))) |> 
+  arrange(e_nivel_desc)
+
 ```
 
-Tenemos nuestra tabla preparada, es el momento de pasar a una geometría de barras. Al momento de trabajar con *barras*, la estética `fill` equivale al atributo `color` de líneas o puntos. Podemos incluir el condicional de signo dentro de la definición de ejes (o de manera previa mediante `mutate`, como prefieras):
+Es el momento de pasar a una geometría de barras. Al momento de trabajar con *barras*, la estética `fill` equivale al atributo `color` de líneas o puntos. Podemos incluir el condicional de signo dentro de la definición de ejes (o de manera previa mediante `mutate`, como prefieras):
 
 ```{r}
-Pir_ER <- ggplot(data = N_ER, 
-                aes(x = EDAD, y = ifelse(Sexo == "VARON", -N, N), fill = Sexo)) +
-                geom_bar(stat = "identity") # que ggplot no trate de contar cual histograma
-Pir_ER
+dist_ned_muj <- eder_ned_sexo |> 
+  ggplot(aes(x = e_nivel_desc, y = Mujer, fill = e_nivel_desc))+
+  geom_col()
+
+dist_ned_muj
 ```
 
-Ups! Hay que dar vuelta (*flip*) la pirámide. Podemos hacerle unos cambios adicionales de paso: fijar los límites horizontales y mostrar solo absolutos, incluir titulo, subtítulo y fuente, cambiar las etiquetas de ambos ejes, incluir un *tema* distinto y cambiar el color de las barras.      
+Ups! Habría que darlo vuelta (*flip*) para que se vea mejor. Podemos hacerle unos cambios adicionales de paso: incluir titulo, subtítulo y fuente, cambiar las etiquetas de ambos ejes, incluir un *tema* distinto y cambiar el color de las barras.      
 
 ```{r, message=F}
-Pir_ER <- Pir_ER +
+dist_ned_muj <- dist_ned_muj +
             coord_flip() +
-            scale_y_continuous(labels = abs, limits = max(N_ER$N) * c(-1,1)) +
-            scale_x_continuous(labels = seq(0,110,5), breaks = seq(0,110,5), limits=c(0, 110)) +
-            labs(y = "Población", 
-                 x = "Edad",
-                 title = "Pirámide de población. Año 2010",
-                 subtitle = "Entre Ríos",
-                 caption = "Fuente: en base a INDEC") +
-            scale_fill_manual(values = c("red", "green")) +
+            scale_y_continuous(labels = abs) +
+            labs(y = "n", 
+                 x = "Nivel educativo",
+                 title = "Mujeres por nivel educativo",
+                 subtitle = "EDER CABA",
+                 caption = "Fuente: en base a IDECBA") +
             theme_bw()
-Pir_ER  
+dist_ned_muj  
 ```
         
-Probablemente querramos comparar provincias, para lo que podemos usar las opciones de [faceting](https://ggplot2.tidyverse.org/reference/facet_grid.html). Volvamos a utilizar el `data.frame` de 3 provincias, transformándolo primero a formato *tidy*:
-
+Probablemente querramos varones y mujeres. Volvamos a poner el sexo como una variable, esta vez con `pivot_longer`
 ```{r}
-# formato tidy
-N_Provs <- N_Provs %>% 
-              pivot_longer(cols = c(VARON, MUJER), names_to = "Sexo", values_to = "N") 
-          
-# pirámide     
-Pirs <- N_Provs %>% 
-                ggplot(aes(x = EDAD, y = ifelse(Sexo == "VARON", -N, N), fill = Sexo)) +
-                geom_bar(stat = "identity") +
-                coord_flip() +
-                scale_y_continuous(labels = abs,
-                                   limits = max(N_Provs$N) * c(-1,1)) +
-                labs(y = "Población", x = "Edad") +
-                labs(title = "Pirámide de población. Año 2010",
-                  subtitle = "Provincias seleccionadas",
-                  caption = "Fuente: INDEC") +
-                scale_fill_manual(values = c("red", "green")) +
-                theme_dark() +
-                facet_grid(rows = vars(PROV_NOMBRE)) # o cols?
-Pirs
+eder_ned_sexo_long <- eder_ned_sexo |> 
+  pivot_longer(cols = c("Mujer", "Varón"), names_to = "Sexo",values_to ="n")
+
+eder_ned_sexo_long
 ```
 
-Utilicé dos veces `labs`! Es posible porque `ggplot` funciona sumando elementos. ¿El gráfico nos permite inferir estadíos transicionales? Mmm... Deberíamos verlo en porcentajes. Todo en una sentencia:
 
+Y si quisiéramos ver el mismo gráfico que antes, pero separado por sexo, podemos usar las opciones de [faceting](https://ggplot2.tidyverse.org/reference/facet_grid.html). :
 
 ```{r}
-PirsPorc <- N_Provs %>% 
-                group_by(PROV_NOMBRE, Sexo) %>% 
-                mutate(Np = round(N/sum(N)*100,2))%>% 
-                ggplot() + 
-                  aes(x = EDAD, y = ifelse(Sexo == "VARON", -Np, Np), fill = Sexo) +
-                  geom_bar(stat = "identity") +
-                  coord_flip() +
-                  scale_y_continuous(labels = abs) +
-                  labs(y = "Porcentaje de población", x = "Edad") +
-                  theme_bw() +
-                  scale_fill_manual(values =c("blue", "gold"))+
-                  facet_grid(cols = vars(PROV_NOMBRE))
-PirsPorc
+g_ned_sexo <- eder_ned_sexo_long %>% 
+  ggplot(aes(x = e_nivel_desc, y = n, fill = e_nivel_desc))+
+  geom_col()+
+  coord_flip() +
+  scale_y_continuous(labels = abs) +
+  labs(y = "n", 
+  x = "Nivel educativo",
+  title = "Población por sexo y nivel educativo",
+  subtitle = "EDER CABA",
+  caption = "Fuente: en base a IDECBA") +
+  theme_bw() +
+  theme_dark() +
+  facet_grid(rows = vars(Sexo)) # o cols?
+g_ned_sexo
+```
+
+¿Podríamos mostrar las distribuciones al interior del total? ¡Claro!
+
+```{r}
+g_ned_sexo_stack <- eder_ned_sexo_long %>% 
+  ggplot(aes(x = Sexo, y = n, fill = e_nivel_desc))+
+  geom_col(stat = "identity")+ # con este parámetro, se apilan
+  scale_y_continuous(labels = abs) +
+  labs(y = "n", 
+  x = "Nivel educativo",
+  title = "Población por sexo y nivel educativo",
+  subtitle = "EDER CABA",
+  caption = "Fuente: en base a IDECBA") +
+  theme_bw()   
+g_ned_sexo_stack
 ```
 
 Finalmente, cuando necesites guardar el gráfico, por ejemplo como pdf:
 
 ```{r, eval = F}
-ggsave(plot = "PirsPorc.pdf", filename = PirsPorc)
+ggsave(plot = "g_ned_sexo_stack.pdf", filename = g_ned_sexo_stack)
 ```
 
 
-¡Ahora sí! Estamos en condiciones de percibir visualmente qué nos dice el stock por edad y sexo: envejecimiento, efecto migratorio, patrones de declaración censal de edad. ¿Qué más? Quizás si fuera un gráfico interactivo... Un bonus track utilzando [plotly](https://plot.ly/ggplot2/):
+Quizás si fuera un gráfico interactivo... Un bonus track utilzando [plotly](https://plot.ly/ggplot2/):
 
 ```{r}
 #install.packages("plotly")
 library(plotly)
-PirsPorc_plotly <- ggplotly(PirsPorc + aes(text = Np), tooltip= "text") 
+g_ned_sexo_plotly <- ggplotly(g_ned_sexo_stack + aes(text = n), tooltip= "text") 
+g_ned_sexo_plotly
 ```
 
 ###  Actividad
@@ -247,86 +259,36 @@ PirsPorc_plotly <- ggplotly(PirsPorc + aes(text = Np), tooltip= "text")
 a) Realizar un gráfico de línea con el índice de masculinidad por edad de la provincia que prefiera para el censo 2010.  
 
 ```{r, eval=F, include = F}
-N_Censo %>% 
-  filter(PROV_NOMBRE=="Total", CENSO == 2010) %>% 
-  mutate(IM = VARON/MUJER*100) %>% 
-  ggplot() +
-  geom_line(aes(x=EDAD,y=IM))
+
 ```
 
 a) Ahora incluya ambos censos, cada uno con un color distinto.  
 
 ```{r, eval=F, include = F}
-N_Censo %>% 
-  filter(PROV_NOMBRE=="Total") %>% 
-  mutate(IM = VARON/MUJER*100,
-         CENSO = as.factor(CENSO)) %>% 
-  ggplot() +
-  geom_line(aes(x=EDAD,y=IM, color=CENSO))
+
 ```
 
 a) Hacer el mismo gráfico pero comparando 3 provincias.  
 ```{r, eval=F, include = F}
-N_Censo %>% 
-  filter(PROV_NOMBRE%in% Provincias) %>% 
-  mutate(IM = VARON/MUJER*100,
-         PROV_NOMBRE = as.factor(PROV_NOMBRE)) %>% 
-  ggplot() +
-  geom_line(aes(x=EDAD,y=IM, color=CENSO)) +
-  facet_grid(rows = vars(PROV_NOMBRE))
+
 ```
 
 a) El primer autor te escribe para incluir el gráfico previo en una publicación. ¿Qué modificaciones le harías para dejarlo listo? 
 ```{r, eval=F, include = F}
 # como mínimo...
-N_Censo %>% 
-  filter(PROV_NOMBRE%in% Provincias) %>% 
-  mutate(IM = VARON/MUJER*100,
-         PROV_NOMBRE = as.factor(PROV_NOMBRE)) %>% 
-  ggplot() +
-  geom_line(aes(x=EDAD,y=IM, color=factor(CENSO))) +
-  labs(color = "CENSO")+
-  scale_y_continuous(limits=c(0, 120)) +
-  scale_x_continuous(labels = seq(0,100,5), breaks = seq(0,100,5), limits=c(0, 100)) +
-  facet_grid(rows = vars(PROV_NOMBRE))
+
 ```
 
 a) Construir la pirámide de población del Total país, colocando ambos censos uno debajo del otro.
 
 ```{r, eval=F, include = F}
-N_Censo %>% filter(PROV_NOMBRE=="Total") %>% 
-                pivot_longer(cols = c(VARON, MUJER), names_to = "Sexo", values_to="N") %>% 
-                group_by(Sexo, CENSO) %>% 
-                mutate(Np = round(N/sum(N)*100,2))%>% 
-                ggplot() + 
-                  aes(x = EDAD, y = ifelse(Sexo == "VARON", -Np, Np), fill = Sexo) +
-                  geom_bar(stat = "identity") +
-                  coord_flip() +
-                  scale_y_continuous(labels = abs) +
-                  labs(y = "Porcentaje de población", x = "Edad") +
-                  theme_bw() +
-                  scale_fill_manual(values =c("blue", "gold"))+
-                  facet_grid(rows = vars(CENSO))
+
 ```
 
 a) Ahora el primer autor (incansable) te solicita que hagas el plot anterior pero por grupos quinquenales de edad.
 
 ```{r, eval=F, include = F}
-N_Censo %>% filter(PROV_NOMBRE=="Total") %>% 
-                pivot_longer(cols = c(VARON, MUJER), names_to = "Sexo", values_to="N") %>%
-                mutate(EDAD = trunc(EDAD/5)*5) %>% 
-                summarise(N = sum(N), .by = c(Sexo, EDAD, CENSO)) %>% 
-                group_by(Sexo, CENSO) %>% 
-                mutate(Np = round(N/sum(N)*100,2))%>% 
-                ggplot() + 
-                  aes(x = EDAD, y = ifelse(Sexo == "VARON", -Np, Np), fill = Sexo) +
-                  geom_bar(stat = "identity") +
-                  coord_flip() +
-                  scale_y_continuous(labels = abs) +
-                  labs(y = "Porcentaje de población", x = "Edad") +
-                  theme_bw() +
-                  scale_fill_manual(values =c("blue", "gold"))+
-                  facet_grid(rows = vars(CENSO))
+
 ```
 
 ## Lexis

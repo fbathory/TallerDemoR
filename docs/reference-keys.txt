@@ -29,3 +29,4 @@ resumir-summarise-por-grupos-group_by
 transformar-mutate-filtrar-filter-ordenar-arrange
 actividad-6
 recursos-adicionales
+exportar
