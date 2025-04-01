@@ -6,6 +6,8 @@ library(knitr)
 library(fontawesome)
 library(tidyverse)
 Sys.setlocale("LC_ALL", "Spanish_Spain.UTF-8")
+eder_personas <- read.csv("data/EDER_CABA/eder2019_personas.csv")
+
 ```
 
 
@@ -36,7 +38,7 @@ getwd()
 
 Vamos a ver la distribución por edad de la EDER con **ggplot**. Para eso, primero vamos a calcular cuántas personas hay por edad. Recordemos que hay un código 9999 para valores desconocidos de edad
 
-```{r}
+```{r, message=F, warning=FALSE}
 eder_dist <- eder_personas %>% 
   filter(p3b <= 103)|> 
   group_by(p3b) |> 
@@ -60,9 +62,10 @@ eder_dist |>
 `ggplot` utiliza `+` en vez de ` %>% `. No es algo de lo que esté orgulloso su creador, pero tiene sus [razones](https://community.rstudio.com/t/why-cant-ggplot2-use/4372).
 :::
 
+
 Podemos separar mujeres y varones, distinguiéndolas por color (*estética*). Y vamos a sacar a la gente sin información de sexo.
 
-```{r}
+```{r, message=F, warning=FALSE}
 eder_dist_s <- eder_personas %>% 
   filter(p3b <= 103,
          p2 %in% 1:2)|>
@@ -95,7 +98,7 @@ que...
 
 Agreguemos [un título, un subtítulo](https://ggplot2.tidyverse.org/reference/labs.html), modifiquemos el tamaño del punto, la posición y título de la leyenda, y  especifiquemos las marcas en el eje x:
 
-```{r}
+```{r, message=F, warning=FALSE}
 g_eder_sexo <- g_eder_sexo +  # partimos del objeto anterior
   labs(title = "Población por edad y sexo. EDER 2019",
        subtitle = "CABA",
@@ -136,42 +139,43 @@ Lo que vamos a hacer ahora, y solo a fines de entender cómo se puede armar, es 
 Para esto utlizaremos las funciones `pivot` (antiguamaente llamadas *gather* y *spread*, por si lo ves en la web). Leamos la hoja de ayuda (*cheat sheet*) de [tidyr](https://tidyr.tidyverse.org/) juntos, otro paquete del entorno `tidyverse`. 
 
 
-```{r}
+```{r, message=F, warning=FALSE}
 eder_ned_sexo <- eder_personas %>% 
   filter(p2 %in% 1:2, # Elimino los que no tienen asignado el sexo y el nivel educativo
          e_nivel != 9) |> 
-  mutate(sexo = case_when(p2 == 1 ~ "Varón", # Recodifico
+  mutate(sexo = case_when(p2 == 1 ~ "Varon", # Recodifico
                           p2 == 2 ~ "Mujer"),
-         e_nivel_desc = case_when(e_nivel == 0 ~ "No corresponde/asiste o asistió a escuelas especiales no primarias",
+         e_nivel_desc = case_when(e_nivel == 0 ~ "No corresponde/escuelas especiales",
                                   e_nivel == 1 ~ "Inicial",
                                   e_nivel == 2 ~ "Primario incompleto",
                                   e_nivel == 3 ~ "Primario completo",
                                   e_nivel == 4 ~ "Secundario incompleto",
                                   e_nivel == 5 ~ "Secundario completo",
                                   e_nivel == 6 ~ "Superior / Universitario incompleto",
-                                  e_nivel == 7 ~ "Superior / Universitario completo y más",
-                                  e_nivel == 8 ~ "Sin instrucción")) |> 
+                                  e_nivel == 7 ~ "Superior / Universitario completo y mas",
+                                  e_nivel == 8 ~ "Sin instruccion")) |> 
   select(sexo, e_nivel_desc) |> 
   group_by(sexo, e_nivel_desc) |> 
   summarise(n = n()) |> 
   pivot_wider(names_from = sexo, values_from = n)%>% 
   mutate(e_nivel_desc = factor(e_nivel_desc,
-                               levels = c("No corresponde/asiste o asistió a escuelas especiales no primarias",
+                               levels = c("No corresponde/escuelas especiales",
                                           "Inicial",
                                           "Primario incompleto",
                                           "Primario completo",
                                           "Secundario incompleto",
                                           "Secundario completo",
                                           "Superior / Universitario incompleto",
-                                          "Superior / Universitario completo y más",
-                                          "Sin instrucción"))) |> 
+                                          "Superior / Universitario completo y mas",
+                                          "Sin instruccion"))) |> 
   arrange(e_nivel_desc)
 
 ```
 
 Es el momento de pasar a una geometría de barras. Al momento de trabajar con *barras*, la estética `fill` equivale al atributo `color` de líneas o puntos. Podemos incluir el condicional de signo dentro de la definición de ejes (o de manera previa mediante `mutate`, como prefieras):
 
-```{r}
+```{r, message=F, warning=FALSE}
+
 dist_ned_muj <- eder_ned_sexo |> 
   ggplot(aes(x = e_nivel_desc, y = Mujer, fill = e_nivel_desc))+
   geom_col()
@@ -195,9 +199,9 @@ dist_ned_muj
 ```
         
 Probablemente querramos varones y mujeres. Volvamos a poner el sexo como una variable, esta vez con `pivot_longer`
-```{r}
+```{r, message=F, warning=FALSE}
 eder_ned_sexo_long <- eder_ned_sexo |> 
-  pivot_longer(cols = c("Mujer", "Varón"), names_to = "Sexo",values_to ="n")
+  pivot_longer(cols = c("Mujer", "Varon"), names_to = "Sexo",values_to ="n")
 
 eder_ned_sexo_long
 ```
@@ -205,7 +209,7 @@ eder_ned_sexo_long
 
 Y si quisiéramos ver el mismo gráfico que antes, pero separado por sexo, podemos usar las opciones de [faceting](https://ggplot2.tidyverse.org/reference/facet_grid.html). :
 
-```{r}
+```{r, message=F, warning=FALSE}
 g_ned_sexo <- eder_ned_sexo_long %>% 
   ggplot(aes(x = e_nivel_desc, y = n, fill = e_nivel_desc))+
   geom_col()+
@@ -213,7 +217,7 @@ g_ned_sexo <- eder_ned_sexo_long %>%
   scale_y_continuous(labels = abs) +
   labs(y = "n", 
   x = "Nivel educativo",
-  title = "Población por sexo y nivel educativo",
+  title = "Poblacion por sexo y nivel educativo",
   subtitle = "EDER CABA",
   caption = "Fuente: en base a IDECBA") +
   theme_bw() +
@@ -224,14 +228,14 @@ g_ned_sexo
 
 ¿Podríamos mostrar las distribuciones al interior del total? ¡Claro!
 
-```{r}
+```{r, message=F, warning=FALSE}
 g_ned_sexo_stack <- eder_ned_sexo_long %>% 
   ggplot(aes(x = Sexo, y = n, fill = e_nivel_desc))+
   geom_col(stat = "identity")+ # con este parámetro, se apilan
   scale_y_continuous(labels = abs) +
   labs(y = "n", 
   x = "Nivel educativo",
-  title = "Población por sexo y nivel educativo",
+  title = "Poblacion por sexo y nivel educativo",
   subtitle = "EDER CABA",
   caption = "Fuente: en base a IDECBA") +
   theme_bw()   
@@ -247,49 +251,13 @@ ggsave(plot = "g_ned_sexo_stack.pdf", filename = g_ned_sexo_stack)
 
 Quizás si fuera un gráfico interactivo... Un bonus track utilzando [plotly](https://plot.ly/ggplot2/):
 
-```{r}
+```{r, message=F, warning=FALSE}
 #install.packages("plotly")
 library(plotly)
 g_ned_sexo_plotly <- ggplotly(g_ned_sexo_stack + aes(text = n), tooltip= "text") 
 g_ned_sexo_plotly
 ```
 
-###  Actividad
-
-a) Realizar un gráfico de línea con el índice de masculinidad por edad de la provincia que prefiera para el censo 2010.  
-
-```{r, eval=F, include = F}
-
-```
-
-a) Ahora incluya ambos censos, cada uno con un color distinto.  
-
-```{r, eval=F, include = F}
-
-```
-
-a) Hacer el mismo gráfico pero comparando 3 provincias.  
-```{r, eval=F, include = F}
-
-```
-
-a) El primer autor te escribe para incluir el gráfico previo en una publicación. ¿Qué modificaciones le harías para dejarlo listo? 
-```{r, eval=F, include = F}
-# como mínimo...
-
-```
-
-a) Construir la pirámide de población del Total país, colocando ambos censos uno debajo del otro.
-
-```{r, eval=F, include = F}
-
-```
-
-a) Ahora el primer autor (incansable) te solicita que hagas el plot anterior pero por grupos quinquenales de edad.
-
-```{r, eval=F, include = F}
-
-```
 
 ## Lexis
 
@@ -316,7 +284,7 @@ Fuente: Schöley & Willekens (2017)
 
 Construyamos el diagrama básico del inicio. Para eso haremos uso del paquete [LexisPlotR](https://github.com/ottlngr/LexisPlotR) creado por Philipp Ottolinger (gracias Otto). Construyó un set de funciones basadas en *ggplot* que facilita la creación de diagramas haciéndolo un ejercicio intuitivo. 
 
-```{r}
+```{r, message=F, warning=FALSE}
 # install.packages("devtools")
 # devtools::install_github("ottlngr/LexisPlotR") #¿Cómo no esta en CRAN?
 library(LexisPlotR)
@@ -358,7 +326,7 @@ mylexis
 
 Adicionalmente, si trabajamos con población donde la exposición puede ser truncada (por derecha o izquierda), podemos graficar líneas de vida que respeten ese comportamiento. Tambien podemos señalar con una cruz la ocurrencia del evento de salida que se estudia.
 
-```{r}
+```{r, message=F, warning=FALSE}
 # ingresa al estudio sobre deserción escolar en el año 2012 un niño/a nacido en el año 2005, abandonando el colegio a los 9 años de edad:
 mylexis <- lexis_lifeline(lg = mylexis, 
                           birth = "2005-09-23", 
@@ -369,7 +337,7 @@ mylexis
 
 Pero atrás de esto esta `ggplot`!
 
-```{r}
+```{r, message=F, warning=FALSE}
 ggplot() +
   geom_segment(aes(x = 2011, y = 5, xend = 2015, yend = 9), color = "red", size=1)+ # debería ir al final
   geom_point(aes(x=2015, y=9),shape=4,size=2,col=4)+
@@ -394,7 +362,7 @@ Para incluir triángulos y cuadriláteros se utiliza [geom_polygon](https://ggpl
 
 Construyamos una tabla de cohorte a partir de un grupo de estudiantes que iniciaron con 3 años de edad (cumplida) su trayectoria educativa el 3/3/2000, y donde la *salida* es dejar el estudio (sea cual sea el nivel alcanzado) por **primera vez** antes de retomar o abandonar definitivamente (¿en este contexto qué sería $\omega$?). Simulemos el comportamiento de 1000 chicas/os con distribución *uniforme* de la edad y distribución *gamma* del tiempo de permanencia:
 
-```{r}
+```{r, message=F, warning=FALSE}
 set.seed(100) # qué es esto?
 clase <- data.frame(edad_inicio = runif(n = 1000, min = 3, max = 4),
                     tiempo_exp = rgamma(n = 1000, shape = 40, rate = 2)) %>% 
@@ -411,7 +379,7 @@ ggplot(clase, aes(x=edad_salida)) +
 
 Construyamos el diagrama de Lexis de esta cohorte utilizando `LexisPlotR`:
 
-```{r}
+```{r, message=F, warning=FALSE}
 # una forma de moverse en el tiempo: a una fecha restarle cantidad de días
 clase$nacimiento  <- as.Date("2000-03-03") - clase$edad_inicio * 365.25
 clase$salida      <- clase$nacimiento + clase$tiempo_exp * 365.25
@@ -524,6 +492,7 @@ Samuel Preston (1975) encontró una relación matemática (al menos) a nivel de 
 
 ```{r}
 library(gapminder)
+
 p <- ggplot(filter(gapminder, continent == "Americas"),
             aes(x = gdpPercap, y = lifeExp))
 p + geom_point() # dispersión
@@ -534,6 +503,7 @@ p1
 p + geom_point(alpha = 1/3, size = 3) + facet_wrap(~ country) +
     geom_smooth(lwd = 1.5, se = FALSE) +
     theme_void()
+
 ```
 
 ¿Componer gráficos en una sola hoja? (tomado de [Jenny Bryan](https://stat545.com/))

@@ -30,3 +30,16 @@ transformar-mutate-filtrar-filter-ordenar-arrange
 actividad-6
 recursos-adicionales
 exportar
+ggplot
+introducción-1
+ggplot-1
+lexis
+estudio-de-cohorte-un-ejemplo
+actividad-7
+reproduciendo
+otras-visualizaciones
+material-adicional-y-no-tanto
+tp
+hemos-llegado
+consigna
+fig:unnamed-chunk-9
