@@ -6,7 +6,7 @@ library(knitr)
 library(fontawesome)
 library(tidyverse)
 Sys.setlocale("LC_ALL", "Spanish_Spain.UTF-8")
-eder_personas <- read.csv("data/EDER_CABA/eder2019_personas.csv")
+eder_personas <- read.csv("data/eder2019_personas.csv")
 
 ```
 
@@ -220,7 +220,6 @@ g_ned_sexo <- eder_ned_sexo_long %>%
   title = "Poblacion por sexo y nivel educativo",
   subtitle = "EDER CABA",
   caption = "Fuente: en base a IDECBA") +
-  theme_bw() +
   theme_dark() +
   facet_grid(rows = vars(Sexo)) # o cols?
 g_ned_sexo

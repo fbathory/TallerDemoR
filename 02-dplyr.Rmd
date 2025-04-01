@@ -131,7 +131,7 @@ sum(DEf05_22$cantidad[DEf05_22$anio == 2021])/(sum(DEf05_22$cantidad[DEf05_22$an
 d) Leer *"eder2019_personas.csv"* (por deafult con separador ",") y guardarlo en un objeto llamado _eder_personas_br_ (*br* por bruta, aún sin cambios).  
 
 ```{r, include=F, hide=TRUE}
-eder_personas_br <- read.csv("data/EDER_CABA/eder2019_personas.csv")
+eder_personas_br <- read.csv("data/eder2019_personas.csv")
 ```
 
 e) Explorar el objeto leído en el punto anterior con lo visto hasta quí, y resaltar aspectos que te llamen la atención.  
@@ -271,8 +271,9 @@ Con `summarise` podemos aplicar cualquier función resumen sobre los datos. Por 
 ```{r, eval=F}
 eder_personas_br %>% summarise(edad_media = mean(p3b))
 eder_personas_br %>% summarise(edad_min = min(p3b))
+eder_personas_br %>% summarise(edad_max = max(p3b))
 ```
-¿9999? Eso no está bien. Volveremos sobre esto más tarde. 
+¿Algo te llama la atención? 
 
 ¿Podemos incluir todo lo anterior en una sola sentencia? ¡Esa es la magia de `%>%`!
 
