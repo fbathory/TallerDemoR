@@ -269,13 +269,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="dplyr.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(eph)</span>
 <span id="cb7-2"><a href="dplyr.html#cb7-2" tabindex="-1"></a>EPH_3t24_eph <span class="ot">=</span> <span class="fu">get_microdata</span>(<span class="at">year =</span> <span class="dv">2024</span>, <span class="at">period =</span> <span class="dv">3</span>, <span class="at">type =</span> <span class="st">&#39;individual&#39;</span>)</span></code></pre></div>
-<pre><code>## No se detecto acceso a internet. Por favor checkea tu conexion.</code></pre>
 <div id="acceso-a-archivos-no-locales" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Acceso a archivos no locales<a href="dplyr.html#acceso-a-archivos-no-locales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>También podemos leer un archivo <strong>online</strong>, por ejemplo la base de microdatos de DEIS (Dirección de Estadísticas e Información en Salud) de defunciones para los años 2005-2022. Vayamos a la web de Datos Argentina del Ministerio de Salud de la Nación, específicamente para <a href="(http://datos.salud.gob.ar/dataset?groups=estadisticas-vitales)">Estadísticas Vitales</a>, y veamos cómo obtener la dirección en la web con click derecho sobre el enlace. Tiene extensión <a href="https://es.wikipedia.org/wiki/Valores_separados_por_comas"><em>.csv</em></a>. Utilicemos la función <code>read.csv</code> comentada anteriormente, pero en vez de apuntar a un archivo local hagámoslo al <em>url</em>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="dplyr.html#cb9-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/ccf688f4-db38-4b0f-86f3-c99341ac52ad/download/defunciones-ocurridas-y-registradas-en-la-republica-argentina-entre-los-anos-2005-2022.csv&quot;</span></span>
-<span id="cb9-2"><a href="dplyr.html#cb9-2" tabindex="-1"></a>DEf05_22 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">header =</span> T)</span>
-<span id="cb9-3"><a href="dplyr.html#cb9-3" tabindex="-1"></a><span class="fu">head</span>(DEf05_22)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="dplyr.html#cb8-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/ccf688f4-db38-4b0f-86f3-c99341ac52ad/download/defunciones-ocurridas-y-registradas-en-la-republica-argentina-entre-los-anos-2005-2022.csv&quot;</span></span>
+<span id="cb8-2"><a href="dplyr.html#cb8-2" tabindex="-1"></a>DEf05_22 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">header =</span> T)</span>
+<span id="cb8-3"><a href="dplyr.html#cb8-3" tabindex="-1"></a><span class="fu">head</span>(DEf05_22)</span></code></pre></div>
 <p>Otras opciones posibles:</p>
 <ul>
 <li><p>Paquete con datos: por ejemplo</p>
@@ -306,34 +305,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="dplyr-1" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> dplyr<a href="dplyr.html#dplyr-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En la unidad previa caracterizamos un hogar censal. En esta unidad trabajaremos la base de datos de la EDER, con todas las personas encuestadas. Para esto recorreremos algunos paquetes de <a href="https://www.tidyverse.org/">tidyverse</a>, cuyo fin es generar un entorno integrado de herramientas de análisis de datos.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="dplyr.html#cb10-1" tabindex="-1"></a><span class="co"># install.packages(&quot;tidyverse&quot;)</span></span>
-<span id="cb10-2"><a href="dplyr.html#cb10-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="dplyr.html#cb9-1" tabindex="-1"></a><span class="co"># install.packages(&quot;tidyverse&quot;)</span></span>
+<span id="cb9-2"><a href="dplyr.html#cb9-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>El paquete <a href="https://dplyr.tidyverse.org/"><em>dplyr</em></a> contiene las operaciones más comunes sobre una tabla de datos, y se volvió en los últimos años el paquete más utilizado para este fin.</p>
 <div class="float">
 <img src="figs/remera.jpg" width="250" alt="https://www.amazon.com/Dplyr-Hex-T-shirt-Rstudio-Tidyverse/dp/B07HKV9W7M" />
 <div class="figcaption"><a href="https://www.amazon.com/Dplyr-Hex-T-shirt-Rstudio-Tidyverse/dp/B07HKV9W7M" class="uri">https://www.amazon.com/Dplyr-Hex-T-shirt-Rstudio-Tidyverse/dp/B07HKV9W7M</a></div>
 </div>
 <p>Una de sus ventajas es el uso del pipe <code>%&gt;%</code> o <code>|&gt;</code>, que concatena operaciones sobre el mismo objeto, <strong>verbalizando</strong> el proceso, generando fluidez en nuestro razonamiento y mejor entendimiento para un tercero. En vez de <code>f(x)</code> (aplicar una función <code>f()</code> a un objeto <code>x</code>) se tiene <code>x %&gt;% f()</code> (tengo un objeto <code>x</code> y le aplico la función <code>f()</code>):</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="dplyr.html#cb11-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="dplyr.html#cb10-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
 <p>Previo a comenzar debes haber leído la base de la EDER <em>“eder2019_personas.csv”</em>, haberla inspeccionado brevemente y guardado en un objeto llamado <em>eder_personas_br</em>.</p>
 <div id="seleccionar-select-renombrar-rename" class="section level3 hasAnchor" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> seleccionar (<strong>select</strong>), renombrar (<strong>rename</strong>)<a href="dplyr.html#seleccionar-select-renombrar-rename" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Empecemos a trabajar la base de datos de la EDER. Para este ejercicio nos interesa contar con las variables identificación vivienda, hogar, sexo del entrevistado, edad del entrevistado y relación de parentezco con el jefe del hogar. Quedémonos con estas variables mediante la función <strong>select</strong>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="dplyr.html#cb12-1" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> eder_personas_br, </span>
-<span id="cb12-2"><a href="dplyr.html#cb12-2" tabindex="-1"></a>                   id, nhogar, p2, p3b, p4)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="dplyr.html#cb11-1" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> eder_personas_br, </span>
+<span id="cb11-2"><a href="dplyr.html#cb11-2" tabindex="-1"></a>                   id, nhogar, p2, p3b, p4)</span></code></pre></div>
 <p>Podemos realizar la misma operación de la mano de <strong>%&gt;%</strong>, no necesitando especificar el objeto como argumento:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="dplyr.html#cb13-1" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, nhogar, p2, p3b, p4)</span>
-<span id="cb13-2"><a href="dplyr.html#cb13-2" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="dplyr.html#cb13-3" tabindex="-1"></a><span class="co"># léase: toma el objeto *** y selecciona las columnas ***</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="dplyr.html#cb12-1" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, nhogar, p2, p3b, p4)</span>
+<span id="cb12-2"><a href="dplyr.html#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="dplyr.html#cb12-3" tabindex="-1"></a><span class="co"># léase: toma el objeto *** y selecciona las columnas ***</span></span></code></pre></div>
 <p>Si quisiéramos quedarnos solo con las variables de persona podríamos usar <code>starts_with("p")</code> dentro de <code>select</code>. Existen muuuchas más <a href="https://dplyr.tidyverse.org/reference/select.html">funcionalidades útiles</a> para tablas con muchas columnas.
 Nótese que estamos <em>pisando</em> el mismo objeto. Luego podemos renombrar algunas variables para hacer su uso más fluido, mediante <strong>rename</strong>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="dplyr.html#cb14-1" tabindex="-1"></a><span class="co"># NuevoNombre = ViejoNombre</span></span>
-<span id="cb14-2"><a href="dplyr.html#cb14-2" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">id_viv =</span> id, <span class="at">nhog=</span>nhogar, <span class="at">sexo=</span>p2, <span class="at">edad=</span>p3b, <span class="at">rel_par=</span>p4)</span>
-<span id="cb14-3"><a href="dplyr.html#cb14-3" tabindex="-1"></a><span class="co"># Tambien es posible por posición</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="dplyr.html#cb13-1" tabindex="-1"></a><span class="co"># NuevoNombre = ViejoNombre</span></span>
+<span id="cb13-2"><a href="dplyr.html#cb13-2" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">id_viv =</span> id, <span class="at">nhog=</span>nhogar, <span class="at">sexo=</span>p2, <span class="at">edad=</span>p3b, <span class="at">rel_par=</span>p4)</span>
+<span id="cb13-3"><a href="dplyr.html#cb13-3" tabindex="-1"></a><span class="co"># Tambien es posible por posición</span></span></code></pre></div>
 <p>Habrás notado una de sus ventajas: la referencia al nombre de las variables no requiere <em>$</em> ni <em>“[,]”</em> como en R Base. Podemos condensar lo anterior y hacerlo todo en un paso utilizando <code>%&gt;%</code>. Implica algo super útil: <strong>un nuevo %&gt;% supone el objeto ya modificado</strong>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="dplyr.html#cb15-1" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br<span class="sc">%&gt;%</span> </span>
-<span id="cb15-2"><a href="dplyr.html#cb15-2" tabindex="-1"></a>                <span class="fu">rename</span>(<span class="at">id_viv =</span> id, <span class="at">nhog=</span>nhogar, <span class="at">sexo=</span>p2, <span class="at">edad=</span>p3b, <span class="at">rel_par=</span>p4) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="dplyr.html#cb15-3" tabindex="-1"></a>                <span class="fu">select</span>(id_viv, nhog, sexo, edad, rel_par)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="dplyr.html#cb14-1" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br<span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="dplyr.html#cb14-2" tabindex="-1"></a>                <span class="fu">rename</span>(<span class="at">id_viv =</span> id, <span class="at">nhog=</span>nhogar, <span class="at">sexo=</span>p2, <span class="at">edad=</span>p3b, <span class="at">rel_par=</span>p4) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="dplyr.html#cb14-3" tabindex="-1"></a>                <span class="fu">select</span>(id_viv, nhog, sexo, edad, rel_par)</span></code></pre></div>
 <p>¿Lo que estamos generando es un <em>data.frame</em>? ¿Qué es un <a href="https://tibble.tidyverse.org/index.html">tibble</a>?</p>
 </div>
 <div id="actividad-5" class="section level3 hasAnchor" number="3.2.2">
@@ -348,157 +347,158 @@ Nótese que estamos <em>pisando</em> el mismo objeto. Luego podemos renombrar al
 <div id="resumir-summarise-por-grupos-group_by" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> resumir (<strong>summarise</strong>) por grupos (<strong>group_by</strong>)<a href="dplyr.html#resumir-summarise-por-grupos-group_by" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Como analistas nos interesa calcular medidas resumen para poder obtener conclusiones, plantear hipótesis o simplemente conocer más el fenómeno relevado/registrado en los datos. Si quisiéramos saber cuántas personas existen en la base de la EDER podemos realizar un <code>summarise</code> (resumen) de los datos mediante la función <code>n()</code> (contar filas):</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="dplyr.html#cb16-1" tabindex="-1"></a>n_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">casos =</span> <span class="fu">n</span>()) </span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="dplyr.html#cb15-1" tabindex="-1"></a>n_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">casos =</span> <span class="fu">n</span>()) </span></code></pre></div>
 <p><em>BONUS</em>: Si queremos considerar el total de personas expandido (con su ponderador), podemos utilizar la función <code>sum(factor expansión)</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="dplyr.html#cb17-1" tabindex="-1"></a>n_personas_exp <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">casos =</span> <span class="fu">sum</span>(fexp))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="dplyr.html#cb16-1" tabindex="-1"></a>n_personas_exp <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">casos =</span> <span class="fu">sum</span>(fexp))</span></code></pre></div>
 <p>Para contar cuántas viviendas fueron relevadas en la base debemos considerar casos con valor <em>distinto</em> en la variable de código de vivienda <code>id_viv</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="dplyr.html#cb18-1" tabindex="-1"></a>n_viviendas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">casos =</span> <span class="fu">n_distinct</span>(id))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="dplyr.html#cb17-1" tabindex="-1"></a>n_viviendas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">casos =</span> <span class="fu">n_distinct</span>(id))</span></code></pre></div>
 <p>¿Cuál es el promedio de personas por vivienda dentro de la encuesta?</p>
 <div class="take_note_box take_note">
 <p><strong>Cóctel propio</strong><br>
 ¿De qué forma podríamos hacer lo anterior en R <em>base</em> (<code>nrow</code>,<code>ncol</code>,<code>unique</code>)? La experiencia de usuarix de cada unx define el <strong>mix</strong> de herramientas que le es más cómodo/útil según la complejidad de cada tarea.</p>
 </div>
 <p>Con <code>summarise</code> podemos aplicar cualquier función resumen sobre los datos. Por ejemplo: ¿Cuál es la edad promedio de las personas? ¿Cual es la edad mínima reportada?</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="dplyr.html#cb19-1" tabindex="-1"></a>eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b))</span>
-<span id="cb19-2"><a href="dplyr.html#cb19-2" tabindex="-1"></a>eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">edad_min =</span> <span class="fu">min</span>(p3b))</span></code></pre></div>
-<p>¿9999? Eso no está bien. Volveremos sobre esto más tarde.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="dplyr.html#cb18-1" tabindex="-1"></a>eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b))</span>
+<span id="cb18-2"><a href="dplyr.html#cb18-2" tabindex="-1"></a>eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">edad_min =</span> <span class="fu">min</span>(p3b))</span>
+<span id="cb18-3"><a href="dplyr.html#cb18-3" tabindex="-1"></a>eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">edad_max =</span> <span class="fu">max</span>(p3b))</span></code></pre></div>
+<p>¿Algo te llama la atención?</p>
 <p>¿Podemos incluir todo lo anterior en una sola sentencia? ¡Esa es la magia de <code>%&gt;%</code>!</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="dplyr.html#cb20-1" tabindex="-1"></a>eder_resumen<span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="dplyr.html#cb20-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_personas =</span> <span class="fu">n</span>(), </span>
-<span id="cb20-3"><a href="dplyr.html#cb20-3" tabindex="-1"></a>            <span class="at">n_viviendas =</span> <span class="fu">n_distinct</span>(id), </span>
-<span id="cb20-4"><a href="dplyr.html#cb20-4" tabindex="-1"></a>            <span class="at">pers_x_viv =</span> n_personas<span class="sc">/</span>n_viviendas,</span>
-<span id="cb20-5"><a href="dplyr.html#cb20-5" tabindex="-1"></a>            <span class="at">edad_media =</span> <span class="fu">mean</span>(p3b),</span>
-<span id="cb20-6"><a href="dplyr.html#cb20-6" tabindex="-1"></a>            <span class="at">edad_min =</span> <span class="fu">min</span>(p3b)</span>
-<span id="cb20-7"><a href="dplyr.html#cb20-7" tabindex="-1"></a>            )</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="dplyr.html#cb19-1" tabindex="-1"></a>eder_resumen<span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="dplyr.html#cb19-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_personas =</span> <span class="fu">n</span>(), </span>
+<span id="cb19-3"><a href="dplyr.html#cb19-3" tabindex="-1"></a>            <span class="at">n_viviendas =</span> <span class="fu">n_distinct</span>(id), </span>
+<span id="cb19-4"><a href="dplyr.html#cb19-4" tabindex="-1"></a>            <span class="at">pers_x_viv =</span> n_personas<span class="sc">/</span>n_viviendas,</span>
+<span id="cb19-5"><a href="dplyr.html#cb19-5" tabindex="-1"></a>            <span class="at">edad_media =</span> <span class="fu">mean</span>(p3b),</span>
+<span id="cb19-6"><a href="dplyr.html#cb19-6" tabindex="-1"></a>            <span class="at">edad_min =</span> <span class="fu">min</span>(p3b)</span>
+<span id="cb19-7"><a href="dplyr.html#cb19-7" tabindex="-1"></a>            )</span></code></pre></div>
 <p>Las operaciones principales que podemos realizar mediante <code>summarise</code> las podés ver <a href="https://dplyr.tidyverse.org/reference/summarise.html">acá</a>.Pero su utilidad se potencia cuando queremos resumir una variable <em>segmentando por grupos</em>. Esta agrupación antecede a <code>summarise</code>, y requiere ser indicada con <code>group_by</code> incluyendo como argumento las variables para agrupar. Por ejemplo, para conocer la cantidad de personas relevadas por sexo:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="dplyr.html#cb21-1" tabindex="-1"></a>pers_sexo <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> </span>
-<span id="cb21-2"><a href="dplyr.html#cb21-2" tabindex="-1"></a>                    <span class="fu">group_by</span>(p2) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="dplyr.html#cb21-3" tabindex="-1"></a>                    <span class="fu">summarise</span>(<span class="at">n_personas =</span> <span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="dplyr.html#cb20-1" tabindex="-1"></a>pers_sexo <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="dplyr.html#cb20-2" tabindex="-1"></a>                    <span class="fu">group_by</span>(p2) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="dplyr.html#cb20-3" tabindex="-1"></a>                    <span class="fu">summarise</span>(<span class="at">n_personas =</span> <span class="fu">n</span>())</span></code></pre></div>
 <p>Seguro estas cantidades difieren según código de <em>relación de parentesco con lx jefx de hogar</em>. Pero primero podemos agregar la variable que describe los códigos. Carguemos como objeto el <em>diccionario</em> e incorporémoslo:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="dplyr.html#cb22-1" tabindex="-1"></a>cod_rel_par <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">p4 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, </span>
-<span id="cb22-2"><a href="dplyr.html#cb22-2" tabindex="-1"></a>                           <span class="at">p4_descripc =</span> <span class="fu">c</span>(<span class="st">&quot;Jefe/a&quot;</span>,</span>
-<span id="cb22-3"><a href="dplyr.html#cb22-3" tabindex="-1"></a>                                        <span class="st">&quot;Cónyuge/pareja&quot;</span>,</span>
-<span id="cb22-4"><a href="dplyr.html#cb22-4" tabindex="-1"></a>                                        <span class="st">&quot;Hijo/a&quot;</span>,</span>
-<span id="cb22-5"><a href="dplyr.html#cb22-5" tabindex="-1"></a>                                        <span class="st">&quot;Hijastro/a&quot;</span>,</span>
-<span id="cb22-6"><a href="dplyr.html#cb22-6" tabindex="-1"></a>                                        <span class="st">&quot;Yerno o nuera&quot;</span>,</span>
-<span id="cb22-7"><a href="dplyr.html#cb22-7" tabindex="-1"></a>                                        <span class="st">&quot;Nieto/a&quot;</span>,</span>
-<span id="cb22-8"><a href="dplyr.html#cb22-8" tabindex="-1"></a>                                        <span class="st">&quot;Padre/madre/suegro/a&quot;</span>,</span>
-<span id="cb22-9"><a href="dplyr.html#cb22-9" tabindex="-1"></a>                                        <span class="st">&quot;Hermano/a&quot;</span>,</span>
-<span id="cb22-10"><a href="dplyr.html#cb22-10" tabindex="-1"></a>                                        <span class="st">&quot;Cuñado/a&quot;</span>,</span>
-<span id="cb22-11"><a href="dplyr.html#cb22-11" tabindex="-1"></a>                                        <span class="st">&quot;Sobrino/a&quot;</span>,</span>
-<span id="cb22-12"><a href="dplyr.html#cb22-12" tabindex="-1"></a>                                        <span class="st">&quot;Abuelo/a&quot;</span>,</span>
-<span id="cb22-13"><a href="dplyr.html#cb22-13" tabindex="-1"></a>                                        <span class="st">&quot;Otro familiar&quot;</span>,</span>
-<span id="cb22-14"><a href="dplyr.html#cb22-14" tabindex="-1"></a>                                        <span class="st">&quot;Otro no familiar&quot;</span>))</span>
-<span id="cb22-15"><a href="dplyr.html#cb22-15" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="dplyr.html#cb22-16" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cod_rel_par, <span class="at">by =</span> <span class="st">&quot;p4&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="dplyr.html#cb21-1" tabindex="-1"></a>cod_rel_par <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">p4 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>, </span>
+<span id="cb21-2"><a href="dplyr.html#cb21-2" tabindex="-1"></a>                           <span class="at">p4_descripc =</span> <span class="fu">c</span>(<span class="st">&quot;Jefe/a&quot;</span>,</span>
+<span id="cb21-3"><a href="dplyr.html#cb21-3" tabindex="-1"></a>                                        <span class="st">&quot;Cónyuge/pareja&quot;</span>,</span>
+<span id="cb21-4"><a href="dplyr.html#cb21-4" tabindex="-1"></a>                                        <span class="st">&quot;Hijo/a&quot;</span>,</span>
+<span id="cb21-5"><a href="dplyr.html#cb21-5" tabindex="-1"></a>                                        <span class="st">&quot;Hijastro/a&quot;</span>,</span>
+<span id="cb21-6"><a href="dplyr.html#cb21-6" tabindex="-1"></a>                                        <span class="st">&quot;Yerno o nuera&quot;</span>,</span>
+<span id="cb21-7"><a href="dplyr.html#cb21-7" tabindex="-1"></a>                                        <span class="st">&quot;Nieto/a&quot;</span>,</span>
+<span id="cb21-8"><a href="dplyr.html#cb21-8" tabindex="-1"></a>                                        <span class="st">&quot;Padre/madre/suegro/a&quot;</span>,</span>
+<span id="cb21-9"><a href="dplyr.html#cb21-9" tabindex="-1"></a>                                        <span class="st">&quot;Hermano/a&quot;</span>,</span>
+<span id="cb21-10"><a href="dplyr.html#cb21-10" tabindex="-1"></a>                                        <span class="st">&quot;Cuñado/a&quot;</span>,</span>
+<span id="cb21-11"><a href="dplyr.html#cb21-11" tabindex="-1"></a>                                        <span class="st">&quot;Sobrino/a&quot;</span>,</span>
+<span id="cb21-12"><a href="dplyr.html#cb21-12" tabindex="-1"></a>                                        <span class="st">&quot;Abuelo/a&quot;</span>,</span>
+<span id="cb21-13"><a href="dplyr.html#cb21-13" tabindex="-1"></a>                                        <span class="st">&quot;Otro familiar&quot;</span>,</span>
+<span id="cb21-14"><a href="dplyr.html#cb21-14" tabindex="-1"></a>                                        <span class="st">&quot;Otro no familiar&quot;</span>))</span>
+<span id="cb21-15"><a href="dplyr.html#cb21-15" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="dplyr.html#cb21-16" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cod_rel_par, <span class="at">by =</span> <span class="st">&quot;p4&quot;</span>)</span></code></pre></div>
 <div class="take_note_box take_note">
 <p><strong>Joins!!!</strong><br>
 <strong>dplyr</strong> tiene las funciones típicas de <em>join</em> para el pareo de data.frames dependiendo la relación que deseemos. Ver más <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">aquí</a>.<br>
 <img src="figs/dplyr_joins.png" width="250" alt="Tipos de join" /></p>
 </div>
 <p>¿Los valores de <code>p4_descripc</code> coinciden con las categorías <code>p4</code>? Veamos el resultado creando una tabla de contingencia entre códigos y etiquetas: podemos usar la función <code>count</code> para descubrirlo: <code>eder_personas %&gt;% count(p4, p4_descripc)</code>. En caso de ver algún error, intentemos corregirlo:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="dplyr.html#cb23-1" tabindex="-1"></a>eder_personas <span class="sc">%&gt;%</span> <span class="fu">count</span>(p4, p4_descripc)</span>
-<span id="cb23-2"><a href="dplyr.html#cb23-2" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="dplyr.html#cb23-3" tabindex="-1"></a>cod_rel_par <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">p4 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>, </span>
-<span id="cb23-4"><a href="dplyr.html#cb23-4" tabindex="-1"></a>                           <span class="at">p4_descripc =</span> <span class="fu">c</span>(<span class="st">&quot;Jefe/a&quot;</span>,</span>
-<span id="cb23-5"><a href="dplyr.html#cb23-5" tabindex="-1"></a>                                        <span class="st">&quot;Cónyuge/pareja&quot;</span>,</span>
-<span id="cb23-6"><a href="dplyr.html#cb23-6" tabindex="-1"></a>                                        <span class="st">&quot;Hijo/a&quot;</span>,</span>
-<span id="cb23-7"><a href="dplyr.html#cb23-7" tabindex="-1"></a>                                        <span class="st">&quot;Hijastro/a&quot;</span>,</span>
-<span id="cb23-8"><a href="dplyr.html#cb23-8" tabindex="-1"></a>                                        <span class="st">&quot;Yerno o nuera&quot;</span>,</span>
-<span id="cb23-9"><a href="dplyr.html#cb23-9" tabindex="-1"></a>                                        <span class="st">&quot;Nieto/a&quot;</span>,</span>
-<span id="cb23-10"><a href="dplyr.html#cb23-10" tabindex="-1"></a>                                        <span class="st">&quot;Padre/madre/suegro/a&quot;</span>,</span>
-<span id="cb23-11"><a href="dplyr.html#cb23-11" tabindex="-1"></a>                                        <span class="st">&quot;Hermano/a&quot;</span>,</span>
-<span id="cb23-12"><a href="dplyr.html#cb23-12" tabindex="-1"></a>                                        <span class="st">&quot;Cuñado/a&quot;</span>,</span>
-<span id="cb23-13"><a href="dplyr.html#cb23-13" tabindex="-1"></a>                                        <span class="st">&quot;Sobrino/a&quot;</span>,</span>
-<span id="cb23-14"><a href="dplyr.html#cb23-14" tabindex="-1"></a>                                        <span class="st">&quot;Abuelo/a&quot;</span>,</span>
-<span id="cb23-15"><a href="dplyr.html#cb23-15" tabindex="-1"></a>                                        <span class="st">&quot;Otro familiar&quot;</span>,</span>
-<span id="cb23-16"><a href="dplyr.html#cb23-16" tabindex="-1"></a>                                        <span class="cn">NA</span>,</span>
-<span id="cb23-17"><a href="dplyr.html#cb23-17" tabindex="-1"></a>                                        <span class="st">&quot;Otro no familiar&quot;</span>))</span>
-<span id="cb23-18"><a href="dplyr.html#cb23-18" tabindex="-1"></a></span>
-<span id="cb23-19"><a href="dplyr.html#cb23-19" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cod_rel_par, <span class="at">by =</span> <span class="st">&quot;p4&quot;</span>)</span>
-<span id="cb23-20"><a href="dplyr.html#cb23-20" tabindex="-1"></a>eder_personas <span class="sc">%&gt;%</span> <span class="fu">count</span>(p4, p4_descripc)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="dplyr.html#cb22-1" tabindex="-1"></a>eder_personas <span class="sc">%&gt;%</span> <span class="fu">count</span>(p4, p4_descripc)</span>
+<span id="cb22-2"><a href="dplyr.html#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="dplyr.html#cb22-3" tabindex="-1"></a>cod_rel_par <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">p4 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>, </span>
+<span id="cb22-4"><a href="dplyr.html#cb22-4" tabindex="-1"></a>                           <span class="at">p4_descripc =</span> <span class="fu">c</span>(<span class="st">&quot;Jefe/a&quot;</span>,</span>
+<span id="cb22-5"><a href="dplyr.html#cb22-5" tabindex="-1"></a>                                        <span class="st">&quot;Cónyuge/pareja&quot;</span>,</span>
+<span id="cb22-6"><a href="dplyr.html#cb22-6" tabindex="-1"></a>                                        <span class="st">&quot;Hijo/a&quot;</span>,</span>
+<span id="cb22-7"><a href="dplyr.html#cb22-7" tabindex="-1"></a>                                        <span class="st">&quot;Hijastro/a&quot;</span>,</span>
+<span id="cb22-8"><a href="dplyr.html#cb22-8" tabindex="-1"></a>                                        <span class="st">&quot;Yerno o nuera&quot;</span>,</span>
+<span id="cb22-9"><a href="dplyr.html#cb22-9" tabindex="-1"></a>                                        <span class="st">&quot;Nieto/a&quot;</span>,</span>
+<span id="cb22-10"><a href="dplyr.html#cb22-10" tabindex="-1"></a>                                        <span class="st">&quot;Padre/madre/suegro/a&quot;</span>,</span>
+<span id="cb22-11"><a href="dplyr.html#cb22-11" tabindex="-1"></a>                                        <span class="st">&quot;Hermano/a&quot;</span>,</span>
+<span id="cb22-12"><a href="dplyr.html#cb22-12" tabindex="-1"></a>                                        <span class="st">&quot;Cuñado/a&quot;</span>,</span>
+<span id="cb22-13"><a href="dplyr.html#cb22-13" tabindex="-1"></a>                                        <span class="st">&quot;Sobrino/a&quot;</span>,</span>
+<span id="cb22-14"><a href="dplyr.html#cb22-14" tabindex="-1"></a>                                        <span class="st">&quot;Abuelo/a&quot;</span>,</span>
+<span id="cb22-15"><a href="dplyr.html#cb22-15" tabindex="-1"></a>                                        <span class="st">&quot;Otro familiar&quot;</span>,</span>
+<span id="cb22-16"><a href="dplyr.html#cb22-16" tabindex="-1"></a>                                        <span class="cn">NA</span>,</span>
+<span id="cb22-17"><a href="dplyr.html#cb22-17" tabindex="-1"></a>                                        <span class="st">&quot;Otro no familiar&quot;</span>))</span>
+<span id="cb22-18"><a href="dplyr.html#cb22-18" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="dplyr.html#cb22-19" tabindex="-1"></a>eder_personas <span class="ot">&lt;-</span> eder_personas_br <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cod_rel_par, <span class="at">by =</span> <span class="st">&quot;p4&quot;</span>)</span>
+<span id="cb22-20"><a href="dplyr.html#cb22-20" tabindex="-1"></a>eder_personas <span class="sc">%&gt;%</span> <span class="fu">count</span>(p4, p4_descripc)</span></code></pre></div>
 <p>Ahora sí, obtegamos la edad promedio de las personas encuestadas según relación de parentesco:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="dplyr.html#cb24-1" tabindex="-1"></a>edad_relpar <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="dplyr.html#cb24-2" tabindex="-1"></a>                    <span class="fu">group_by</span>(p4_descripc) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-3"><a href="dplyr.html#cb24-3" tabindex="-1"></a>                    <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="dplyr.html#cb23-1" tabindex="-1"></a>edad_relpar <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="dplyr.html#cb23-2" tabindex="-1"></a>                    <span class="fu">group_by</span>(p4_descripc) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="dplyr.html#cb23-3" tabindex="-1"></a>                    <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b))</span></code></pre></div>
 <p>Parece una tabla grande (¿cuántas filas tiene?). Si querés <em>mirar</em> la tabla: <code>View(tabla)</code>.</p>
 </div>
 <div id="transformar-mutate-filtrar-filter-ordenar-arrange" class="section level3 hasAnchor" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> transformar (<strong>mutate</strong>), filtrar (<strong>filter</strong>), ordenar (<strong>arrange</strong>)<a href="dplyr.html#transformar-mutate-filtrar-filter-ordenar-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Mediante <code>mutate</code> podemos crear variables nuevas que pueden o no relacionarse a las existentes. Por ejemplo, hacemos una variable que nos diga si la persona es mayor de edad <code>es_mayor</code>, utilizando la función <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/ifelse">ifelse</a>, la opción base de R.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="dplyr.html#cb25-1" tabindex="-1"></a><span class="co"># a que base nos referimos</span></span>
-<span id="cb25-2"><a href="dplyr.html#cb25-2" tabindex="-1"></a><span class="fu">head</span>(eder_personas)</span>
-<span id="cb25-3"><a href="dplyr.html#cb25-3" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="dplyr.html#cb25-4" tabindex="-1"></a><span class="co"># creo una variable (sin resumir como en summarise)</span></span>
-<span id="cb25-5"><a href="dplyr.html#cb25-5" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">es_mayor =</span> <span class="fu">ifelse</span>(p3b <span class="sc">&gt;=</span> <span class="dv">18</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb25-6"><a href="dplyr.html#cb25-6" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="dplyr.html#cb25-7" tabindex="-1"></a><span class="co"># Nos avisan desde IDECBA que hay una hipótesis a corroborar de subdeclaración de edad por un 2%. Tenemos que corregir la edad y volver a armar la variable:</span></span>
-<span id="cb25-8"><a href="dplyr.html#cb25-8" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">edad_altern =</span> p3b <span class="sc">*</span> <span class="fl">1.02</span>,</span>
-<span id="cb25-9"><a href="dplyr.html#cb25-9" tabindex="-1"></a>                                        <span class="at">es_mayor =</span> <span class="fu">ifelse</span>(p3b <span class="sc">&gt;=</span> <span class="dv">18</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="dplyr.html#cb24-1" tabindex="-1"></a><span class="co"># a que base nos referimos</span></span>
+<span id="cb24-2"><a href="dplyr.html#cb24-2" tabindex="-1"></a><span class="fu">head</span>(eder_personas)</span>
+<span id="cb24-3"><a href="dplyr.html#cb24-3" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="dplyr.html#cb24-4" tabindex="-1"></a><span class="co"># creo una variable (sin resumir como en summarise)</span></span>
+<span id="cb24-5"><a href="dplyr.html#cb24-5" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">es_mayor =</span> <span class="fu">ifelse</span>(p3b <span class="sc">&gt;=</span> <span class="dv">18</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb24-6"><a href="dplyr.html#cb24-6" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="dplyr.html#cb24-7" tabindex="-1"></a><span class="co"># Nos avisan desde IDECBA que hay una hipótesis a corroborar de subdeclaración de edad por un 2%. Tenemos que corregir la edad y volver a armar la variable:</span></span>
+<span id="cb24-8"><a href="dplyr.html#cb24-8" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_personas <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">edad_altern =</span> p3b <span class="sc">*</span> <span class="fl">1.02</span>,</span>
+<span id="cb24-9"><a href="dplyr.html#cb24-9" tabindex="-1"></a>                                        <span class="at">es_mayor =</span> <span class="fu">ifelse</span>(p3b <span class="sc">&gt;=</span> <span class="dv">18</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span></code></pre></div>
 <p>Podemos ordenar la tabla para ordenar de mayor a menor con <code>arrange</code>:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="dplyr.html#cb26-1" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(edad_altern)</span>
-<span id="cb26-2"><a href="dplyr.html#cb26-2" tabindex="-1"></a>eder_mayores</span>
-<span id="cb26-3"><a href="dplyr.html#cb26-3" tabindex="-1"></a><span class="co"># mejor al revés: descendente</span></span>
-<span id="cb26-4"><a href="dplyr.html#cb26-4" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(edad_altern))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="dplyr.html#cb25-1" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(edad_altern)</span>
+<span id="cb25-2"><a href="dplyr.html#cb25-2" tabindex="-1"></a>eder_mayores</span>
+<span id="cb25-3"><a href="dplyr.html#cb25-3" tabindex="-1"></a><span class="co"># mejor al revés: descendente</span></span>
+<span id="cb25-4"><a href="dplyr.html#cb25-4" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(edad_altern))</span></code></pre></div>
 <p>¡OJO! ¿Qué son esas edades? Si vamos al diccionario, vemos que <code>p3b = 9999</code> corresponde a <code>No sabe o no responde</code>. Entonces, nos conviene filtrarlos, utilizando <code>filter</code>. Aunque primero chequeemos el rango de edades, ¿no? Y nos aseguramos de que el filtro se haya hecho bien</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="dplyr.html#cb27-1" tabindex="-1"></a><span class="fu">table</span>(eder_mayores<span class="sc">$</span>p3b) <span class="co"># La edad coherente más alta es 103</span></span>
-<span id="cb27-2"><a href="dplyr.html#cb27-2" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> <span class="fu">filter</span>(p3b <span class="sc">&lt;=</span> <span class="dv">103</span>) <span class="co"># Operador lógico! ¿te acordás?</span></span>
-<span id="cb27-3"><a href="dplyr.html#cb27-3" tabindex="-1"></a><span class="fu">range</span>(eder_mayores<span class="sc">$</span>p3b)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="dplyr.html#cb26-1" tabindex="-1"></a><span class="fu">table</span>(eder_mayores<span class="sc">$</span>p3b) <span class="co"># La edad coherente más alta es 103</span></span>
+<span id="cb26-2"><a href="dplyr.html#cb26-2" tabindex="-1"></a>eder_mayores <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> <span class="fu">filter</span>(p3b <span class="sc">&lt;=</span> <span class="dv">103</span>) <span class="co"># Operador lógico! ¿te acordás?</span></span>
+<span id="cb26-3"><a href="dplyr.html#cb26-3" tabindex="-1"></a><span class="fu">range</span>(eder_mayores<span class="sc">$</span>p3b)</span></code></pre></div>
 <p>Vayamos hacia algo un poquito más complejo. Quiero obtener edad promedio de las personas que hicieron la encuesta retrospectiva por máximo nivel educativo alcanzado, pero solo si fueron lxs jefxs o cónyuges.</p>
 <p>Comencemos por crear el data.frame con ese listado:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="dplyr.html#cb28-1" tabindex="-1"></a><span class="co"># busco un listado que cumpla las condiciones:</span></span>
-<span id="cb28-2"><a href="dplyr.html#cb28-2" tabindex="-1"></a>selec_jef_cony <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="dplyr.html#cb28-3" tabindex="-1"></a>                  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>, <span class="co"># Seleccionados para la encuesta retrospectiva</span></span>
-<span id="cb28-4"><a href="dplyr.html#cb28-4" tabindex="-1"></a>                         p4 <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># p4 sea Jefx o cónyuge</span></span>
-<span id="cb28-5"><a href="dplyr.html#cb28-5" tabindex="-1"></a>                  <span class="fu">group_by</span>(e_nivel) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-6"><a href="dplyr.html#cb28-6" tabindex="-1"></a>                  <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b),</span>
-<span id="cb28-7"><a href="dplyr.html#cb28-7" tabindex="-1"></a>                            <span class="at">edad_media_alt =</span> <span class="fu">mean</span>(edad_altern)) </span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="dplyr.html#cb27-1" tabindex="-1"></a><span class="co"># busco un listado que cumpla las condiciones:</span></span>
+<span id="cb27-2"><a href="dplyr.html#cb27-2" tabindex="-1"></a>selec_jef_cony <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="dplyr.html#cb27-3" tabindex="-1"></a>                  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>, <span class="co"># Seleccionados para la encuesta retrospectiva</span></span>
+<span id="cb27-4"><a href="dplyr.html#cb27-4" tabindex="-1"></a>                         p4 <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># p4 sea Jefx o cónyuge</span></span>
+<span id="cb27-5"><a href="dplyr.html#cb27-5" tabindex="-1"></a>                  <span class="fu">group_by</span>(e_nivel) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-6"><a href="dplyr.html#cb27-6" tabindex="-1"></a>                  <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b),</span>
+<span id="cb27-7"><a href="dplyr.html#cb27-7" tabindex="-1"></a>                            <span class="at">edad_media_alt =</span> <span class="fu">mean</span>(edad_altern)) </span></code></pre></div>
 <p>¿Y si quisiera hacer lo mismo, pero diferenciando por sexo? Y tomamos solo la edad que calculamos como alternativa</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="dplyr.html#cb29-1" tabindex="-1"></a>selec_jefcony_sex <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="dplyr.html#cb29-2" tabindex="-1"></a>                  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>, <span class="co"># Seleccionados para la encuesta retrospectiva</span></span>
-<span id="cb29-3"><a href="dplyr.html#cb29-3" tabindex="-1"></a>                         p4 <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># p4 sea Jefx o cónyuge</span></span>
-<span id="cb29-4"><a href="dplyr.html#cb29-4" tabindex="-1"></a>                  <span class="fu">group_by</span>(p2, e_nivel) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-5"><a href="dplyr.html#cb29-5" tabindex="-1"></a>                  <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b),</span>
-<span id="cb29-6"><a href="dplyr.html#cb29-6" tabindex="-1"></a>                            <span class="at">edad_media_alt =</span> <span class="fu">mean</span>(edad_altern)) <span class="sc">|&gt;</span> </span>
-<span id="cb29-7"><a href="dplyr.html#cb29-7" tabindex="-1"></a>  <span class="fu">select</span>(p2, e_nivel, edad_media_alt)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="dplyr.html#cb28-1" tabindex="-1"></a>selec_jefcony_sex <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="dplyr.html#cb28-2" tabindex="-1"></a>                  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>, <span class="co"># Seleccionados para la encuesta retrospectiva</span></span>
+<span id="cb28-3"><a href="dplyr.html#cb28-3" tabindex="-1"></a>                         p4 <span class="sc">%in%</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># p4 sea Jefx o cónyuge</span></span>
+<span id="cb28-4"><a href="dplyr.html#cb28-4" tabindex="-1"></a>                  <span class="fu">group_by</span>(p2, e_nivel) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="dplyr.html#cb28-5" tabindex="-1"></a>                  <span class="fu">summarise</span>(<span class="at">edad_media =</span> <span class="fu">mean</span>(p3b),</span>
+<span id="cb28-6"><a href="dplyr.html#cb28-6" tabindex="-1"></a>                            <span class="at">edad_media_alt =</span> <span class="fu">mean</span>(edad_altern)) <span class="sc">|&gt;</span> </span>
+<span id="cb28-7"><a href="dplyr.html#cb28-7" tabindex="-1"></a>  <span class="fu">select</span>(p2, e_nivel, edad_media_alt)</span></code></pre></div>
 <blockquote>
 <p>Si tuviéramos que relatar lo que estamos haciendo, sería algo del tipo: “tomá la eder, filtrame para traer solo jefxs y cónyuges que hayan contestado la retrospectiva, agrupámelos por estas variables y calculá el indicador para cada grupo; finalmente selecciona qué quieres mostrar”. Es una <em>¡composición de funciones!</em>.</p>
 </blockquote>
 <p>Otra operación común es la de calcular distribuciones en una variable, segmentando con determinada agrupación. Podemos ver el porcentaje de mujeres que contestó el cuestionario retrospectivo por año de nacimiento. Considerar que cualquier operación resumen (media, suma, contar) en un data.frame agrupado resumirá por grupos. Aprovechemos eso:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="dplyr.html#cb30-1" tabindex="-1"></a>Porc_mujeres <span class="ot">&lt;-</span> eder_mayores <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="dplyr.html#cb30-2" tabindex="-1"></a>  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="dplyr.html#cb30-3" tabindex="-1"></a>  <span class="fu">group_by</span>(p3, p2) <span class="sc">|&gt;</span> </span>
-<span id="cb30-4"><a href="dplyr.html#cb30-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb30-5"><a href="dplyr.html#cb30-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porc =</span> N<span class="sc">/</span><span class="fu">sum</span>(N) <span class="sc">*</span><span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-6"><a href="dplyr.html#cb30-6" tabindex="-1"></a>  <span class="fu">filter</span>(p2 <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-7"><a href="dplyr.html#cb30-7" tabindex="-1"></a>  <span class="fu">select</span>(p3, porc)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="dplyr.html#cb29-1" tabindex="-1"></a>Porc_mujeres <span class="ot">&lt;-</span> eder_mayores <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="dplyr.html#cb29-2" tabindex="-1"></a>  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="dplyr.html#cb29-3" tabindex="-1"></a>  <span class="fu">group_by</span>(p3, p2) <span class="sc">|&gt;</span> </span>
+<span id="cb29-4"><a href="dplyr.html#cb29-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb29-5"><a href="dplyr.html#cb29-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porc =</span> N<span class="sc">/</span><span class="fu">sum</span>(N) <span class="sc">*</span><span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb29-6"><a href="dplyr.html#cb29-6" tabindex="-1"></a>  <span class="fu">filter</span>(p2 <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb29-7"><a href="dplyr.html#cb29-7" tabindex="-1"></a>  <span class="fu">select</span>(p3, porc)</span></code></pre></div>
 <p>Pero esto no es tan útil. Entonces podemos hacer esa distribución por cohorte de nacimiento agrupada, <em>recodificando</em> el año de nacimiento con la función <code>case_when</code> en una nueva variable.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="dplyr.html#cb31-1" tabindex="-1"></a><span class="fu">unique</span>(Porc_mujeres<span class="sc">$</span>p3)</span>
-<span id="cb31-2"><a href="dplyr.html#cb31-2" tabindex="-1"></a>distr_coh <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="dplyr.html#cb31-3" tabindex="-1"></a>  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb31-4"><a href="dplyr.html#cb31-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">coh =</span> <span class="fu">case_when</span>(</span>
-<span id="cb31-5"><a href="dplyr.html#cb31-5" tabindex="-1"></a>    p3 <span class="sc">%in%</span> <span class="dv">1948</span><span class="sc">:</span><span class="dv">1952</span> <span class="sc">~</span> <span class="st">&quot;1948-1952&quot;</span>,</span>
-<span id="cb31-6"><a href="dplyr.html#cb31-6" tabindex="-1"></a>    p3 <span class="sc">%in%</span> <span class="dv">1968</span><span class="sc">:</span><span class="dv">1972</span> <span class="sc">~</span> <span class="st">&quot;1968-1972&quot;</span>,</span>
-<span id="cb31-7"><a href="dplyr.html#cb31-7" tabindex="-1"></a>    <span class="cn">TRUE</span>              <span class="sc">~</span> <span class="st">&quot;1978-1982&quot;</span></span>
-<span id="cb31-8"><a href="dplyr.html#cb31-8" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-9"><a href="dplyr.html#cb31-9" tabindex="-1"></a>  <span class="fu">group_by</span>(coh, p2) <span class="sc">|&gt;</span> </span>
-<span id="cb31-10"><a href="dplyr.html#cb31-10" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb31-11"><a href="dplyr.html#cb31-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porc =</span> N<span class="sc">/</span><span class="fu">sum</span>(N) <span class="sc">*</span><span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb31-12"><a href="dplyr.html#cb31-12" tabindex="-1"></a>  <span class="fu">filter</span>(p2 <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb31-13"><a href="dplyr.html#cb31-13" tabindex="-1"></a>  <span class="fu">select</span>(coh, porc)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="dplyr.html#cb30-1" tabindex="-1"></a><span class="fu">unique</span>(Porc_mujeres<span class="sc">$</span>p3)</span>
+<span id="cb30-2"><a href="dplyr.html#cb30-2" tabindex="-1"></a>distr_coh <span class="ot">&lt;-</span> eder_mayores <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="dplyr.html#cb30-3" tabindex="-1"></a>  <span class="fu">filter</span>(retro <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb30-4"><a href="dplyr.html#cb30-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">coh =</span> <span class="fu">case_when</span>(</span>
+<span id="cb30-5"><a href="dplyr.html#cb30-5" tabindex="-1"></a>    p3 <span class="sc">%in%</span> <span class="dv">1948</span><span class="sc">:</span><span class="dv">1952</span> <span class="sc">~</span> <span class="st">&quot;1948-1952&quot;</span>,</span>
+<span id="cb30-6"><a href="dplyr.html#cb30-6" tabindex="-1"></a>    p3 <span class="sc">%in%</span> <span class="dv">1968</span><span class="sc">:</span><span class="dv">1972</span> <span class="sc">~</span> <span class="st">&quot;1968-1972&quot;</span>,</span>
+<span id="cb30-7"><a href="dplyr.html#cb30-7" tabindex="-1"></a>    <span class="cn">TRUE</span>              <span class="sc">~</span> <span class="st">&quot;1978-1982&quot;</span></span>
+<span id="cb30-8"><a href="dplyr.html#cb30-8" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-9"><a href="dplyr.html#cb30-9" tabindex="-1"></a>  <span class="fu">group_by</span>(coh, p2) <span class="sc">|&gt;</span> </span>
+<span id="cb30-10"><a href="dplyr.html#cb30-10" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb30-11"><a href="dplyr.html#cb30-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porc =</span> N<span class="sc">/</span><span class="fu">sum</span>(N) <span class="sc">*</span><span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb30-12"><a href="dplyr.html#cb30-12" tabindex="-1"></a>  <span class="fu">filter</span>(p2 <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb30-13"><a href="dplyr.html#cb30-13" tabindex="-1"></a>  <span class="fu">select</span>(coh, porc)</span></code></pre></div>
 </div>
 <div id="exportar" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> exportar<a href="dplyr.html#exportar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>¿Y cómo exporto esto? Puede ser a csv o a Excel:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="dplyr.html#cb32-1" tabindex="-1"></a><span class="fu">getwd</span>()</span>
-<span id="cb32-2"><a href="dplyr.html#cb32-2" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="dplyr.html#cb32-3" tabindex="-1"></a><span class="co"># creo una carpeta de cosas exportadas dentro de data</span></span>
-<span id="cb32-4"><a href="dplyr.html#cb32-4" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;data/export&quot;</span>)</span>
-<span id="cb32-5"><a href="dplyr.html#cb32-5" tabindex="-1"></a></span>
-<span id="cb32-6"><a href="dplyr.html#cb32-6" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> distr_coh, <span class="at">file =</span> <span class="st">&quot;data/export/Distribución_cohortes.csv&quot;</span>)</span>
-<span id="cb32-7"><a href="dplyr.html#cb32-7" tabindex="-1"></a><span class="co"># install.packages(&quot;openxlsx&quot;)</span></span>
-<span id="cb32-8"><a href="dplyr.html#cb32-8" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
-<span id="cb32-9"><a href="dplyr.html#cb32-9" tabindex="-1"></a><span class="fu">write.xlsx</span>(<span class="at">x =</span> distr_coh, <span class="at">file =</span> <span class="st">&quot;data/export/Distribución_cohortes.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="dplyr.html#cb31-1" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb31-2"><a href="dplyr.html#cb31-2" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="dplyr.html#cb31-3" tabindex="-1"></a><span class="co"># creo una carpeta de cosas exportadas dentro de data</span></span>
+<span id="cb31-4"><a href="dplyr.html#cb31-4" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;data/export&quot;</span>)</span>
+<span id="cb31-5"><a href="dplyr.html#cb31-5" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="dplyr.html#cb31-6" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> distr_coh, <span class="at">file =</span> <span class="st">&quot;data/export/Distribución_cohortes.csv&quot;</span>)</span>
+<span id="cb31-7"><a href="dplyr.html#cb31-7" tabindex="-1"></a><span class="co"># install.packages(&quot;openxlsx&quot;)</span></span>
+<span id="cb31-8"><a href="dplyr.html#cb31-8" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb31-9"><a href="dplyr.html#cb31-9" tabindex="-1"></a><span class="fu">write.xlsx</span>(<span class="at">x =</span> distr_coh, <span class="at">file =</span> <span class="st">&quot;data/export/Distribución_cohortes.xlsx&quot;</span>)</span></code></pre></div>
 </div>
 <div id="actividad-6" class="section level3 hasAnchor" number="3.2.6">
 <h3><span class="header-section-number">3.2.6</span> Actividad<a href="dplyr.html#actividad-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
