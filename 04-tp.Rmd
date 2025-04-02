@@ -34,8 +34,6 @@ Luego agregar:
     
 - Presentar resultados con etiquetas, no con códigos.
     
-- Realizar un gráfico de barras que muestre alguna variable que te interese.
-    
 - Calcular el índice de masculinidad por edad de la población de 0 a 80 años y realizar un gráfico de línea (pista: quizás te sirve tener sexo en dos columnas separadas).
     
 - En un párrafo final describir brevemente qué te llamó la atención de lo observado.
