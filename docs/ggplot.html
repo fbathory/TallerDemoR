@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 ggplot | Análisis Demográfico III - UNIDAD 0: Introducción al análisis demográfico en R</title>
   <meta name="description" content="4 ggplot | Análisis Demográfico III - UNIDAD 0: Introducción al análisis demográfico en R" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 ggplot | Análisis Demográfico III - UNIDAD 0: Introducción al análisis demográfico en R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ayelén Martinez, Florencia Bathory" />
 
 
-<meta name="date" content="2025-04-01" />
+<meta name="date" content="2025-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="dplyr.html"/>
-<link rel="next" href="tp.html"/>
+<link rel="next" href="repaso---dplyr-y-ggplot.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,17 +54,18 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/plotly-binding-4.11.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -74,7 +75,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -145,19 +146,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Análisis Demográfico III: Unidad 0</a></li>
+<li><a href="./">Taller de R aplicado al Análisis Demográfico</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#información-general"><i class="fa fa-check"></i><b>1.1</b> Información general</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#preparándonos"><i class="fa fa-check"></i><b>1.2</b> PrepaRándonos</a>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#informaci%C3%B3n-general"><i class="fa fa-check"></i><b>1.1</b> Información general</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#prepar%C3%A1ndonos"><i class="fa fa-check"></i><b>1.2</b> PrepaRándonos</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#instalación-de-y-rstudio"><i class="fa fa-check"></i><b>1.2.1</b> Instalación de y RStudio</a></li>
-<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#instalación-de-paquetes"><i class="fa fa-check"></i><b>1.2.2</b> Instalación de paquetes</a></li>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#instalaci%C3%B3n-de-y-rstudio"><i class="fa fa-check"></i><b>1.2.1</b> Instalación de y RStudio</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#instalaci%C3%B3n-de-paquetes"><i class="fa fa-check"></i><b>1.2.2</b> Instalación de paquetes</a></li>
 <li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#contactos"><i class="fa fa-check"></i><b>1.2.3</b> Contactos</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#presentación-inicial"><i class="fa fa-check"></i><b>1.3</b> Presentación inicial</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#presentaci%C3%B3n-inicial"><i class="fa fa-check"></i><b>1.3</b> Presentación inicial</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> R Base</a>
 <ul>
@@ -200,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>4</b> ggplot</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="ggplot.html"><a href="ggplot.html#introducción-1"><i class="fa fa-check"></i><b>4.1</b> Introducción</a></li>
+<li class="chapter" data-level="4.1" data-path="ggplot.html"><a href="ggplot.html#introducci%C3%B3n-1"><i class="fa fa-check"></i><b>4.1</b> Introducción</a></li>
 <li class="chapter" data-level="4.2" data-path="ggplot.html"><a href="ggplot.html#ggplot-1"><i class="fa fa-check"></i><b>4.2</b> ggplot</a></li>
 <li class="chapter" data-level="4.3" data-path="ggplot.html"><a href="ggplot.html#lexis"><i class="fa fa-check"></i><b>4.3</b> Lexis</a></li>
 <li class="chapter" data-level="4.4" data-path="ggplot.html"><a href="ggplot.html#estudio-de-cohorte-un-ejemplo"><i class="fa fa-check"></i><b>4.4</b> Estudio de cohorte: un ejemplo</a>
@@ -211,10 +212,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="ggplot.html"><a href="ggplot.html#otras-visualizaciones"><i class="fa fa-check"></i><b>4.6</b> Otras visualizaciones</a></li>
 <li class="chapter" data-level="4.7" data-path="ggplot.html"><a href="ggplot.html#material-adicional-y-no-tanto"><i class="fa fa-check"></i><b>4.7</b> Material adicional (y no tanto)</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="tp.html"><a href="tp.html"><i class="fa fa-check"></i><b>5</b> TP</a>
+<li class="chapter" data-level="5" data-path="repaso---dplyr-y-ggplot.html"><a href="repaso---dplyr-y-ggplot.html"><i class="fa fa-check"></i><b>5</b> Repaso - dplyr y ggplot</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="tp.html"><a href="tp.html#hemos-llegado"><i class="fa fa-check"></i><b>5.1</b> Hemos llegado:</a></li>
-<li class="chapter" data-level="5.2" data-path="tp.html"><a href="tp.html#consigna"><i class="fa fa-check"></i><b>5.2</b> Consigna</a></li>
+<li class="chapter" data-level="5.1" data-path="repaso---dplyr-y-ggplot.html"><a href="repaso---dplyr-y-ggplot.html#bienvenidxs"><i class="fa fa-check"></i><b>5.1</b> Bienvenidxs!</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ggplot" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> ggplot<a href="ggplot.html#ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="introducción-1" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Introducción<a href="ggplot.html#introducción-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.1</span> Introducción<a href="ggplot.html#introducci%C3%B3n-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En esta sección vamos a explorar la utilidad de R para la visualización de contenido demográfico. En <a href="https://www.demographic-research.org/volumes/vol44/36/default.htm">Riffe y otros (2021)</a> se publicó una colección de artículos sobre ejemplos de “buena” visualización en este tema. Allí reseña un poco de la historia (ver los gráficos de Perozzo <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm176.4-80a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm128 32a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM256 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>) y se concluye con algunas recomendaciones a la hora de pensar cómo mostrar lo que queremos comunicar. Es interesante la distinción entre gráfico <strong>exploratorio</strong> y gráfico <strong>explicativo</strong>.</p>
 </div>
 <div id="ggplot-1" class="section level2 hasAnchor" number="4.2">
@@ -452,8 +452,8 @@ Figure 4.1: <a href="https://github.com/allisonhorst/stats-illustrations" class=
 <span id="cb18-2"><a href="ggplot.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
 <span id="cb18-3"><a href="ggplot.html#cb18-3" tabindex="-1"></a>g_ned_sexo_plotly <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(g_ned_sexo_stack <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">text =</span> n), <span class="at">tooltip=</span> <span class="st">&quot;text&quot;</span>) </span>
 <span id="cb18-4"><a href="ggplot.html#cb18-4" tabindex="-1"></a>g_ned_sexo_plotly</span></code></pre></div>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-94ddbe4179f6853315a2" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-94ddbe4179f6853315a2">{"x":{"data":[{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1744,1750],"x":[1,2],"y":[12,6],"text":[" 12","  6"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"No corresponde/escuelas especiales","legendgroup":"No corresponde/escuelas especiales","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1656,1665],"x":[1,2],"y":[88,85],"text":[" 88"," 85"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(211,146,0,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Inicial","legendgroup":"Inicial","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1463,1425],"x":[1,2],"y":[193,240],"text":["193","240"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(147,170,0,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Primario incompleto","legendgroup":"Primario incompleto","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1344,1324],"x":[1,2],"y":[119,101],"text":["119","101"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Primario completo","legendgroup":"Primario completo","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1044,963],"x":[1,2],"y":[300,361],"text":["300","361"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,193,159,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Secundario incompleto","legendgroup":"Secundario incompleto","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[779,733],"x":[1,2],"y":[265,230],"text":["265","230"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,185,227,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Secundario completo","legendgroup":"Secundario completo","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[520,436],"x":[1,2],"y":[259,297],"text":["259","297"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Superior / Universitario incompleto","legendgroup":"Superior / Universitario incompleto","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[33,30],"x":[1,2],"y":[487,406],"text":["487","406"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(219,114,251,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Superior / Universitario completo y mas","legendgroup":"Superior / Universitario completo y mas","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[1,2],"y":[33,30],"text":[" 33"," 30"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,97,195,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Sin instruccion","legendgroup":"Sin instruccion","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826491,"l":48.949771689497723},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Poblacion por sexo y nivel educativo","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["Mujer","Varon"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["Mujer","Varon"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Nivel educativo","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-87.800000000000011,1843.8],"tickmode":"array","ticktext":[0,500,1000,1500],"tickvals":[0,499.99999999999994,1000,1500],"categoryorder":"array","categoryarray":[0,500,1000,1500],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"n","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176002,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"e_nivel_desc","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2500258627da":{"text":{},"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"2500258627da","visdat":{"2500258627da":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-f63c252f00ba417c54e6" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-f63c252f00ba417c54e6">{"x":{"data":[{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1744,1750],"x":[1,2],"y":[12,6],"text":[" 12","  6"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"No corresponde/escuelas especiales","legendgroup":"No corresponde/escuelas especiales","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1656,1665],"x":[1,2],"y":[88,85],"text":[" 88"," 85"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(211,146,0,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Inicial","legendgroup":"Inicial","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1463,1425],"x":[1,2],"y":[193,240],"text":["193","240"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(147,170,0,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Primario incompleto","legendgroup":"Primario incompleto","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1344,1324],"x":[1,2],"y":[119,101],"text":["119","101"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Primario completo","legendgroup":"Primario completo","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[1044,963],"x":[1,2],"y":[300,361],"text":["300","361"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,193,159,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Secundario incompleto","legendgroup":"Secundario incompleto","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[779,733],"x":[1,2],"y":[265,230],"text":["265","230"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,185,227,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Secundario completo","legendgroup":"Secundario completo","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[520,436],"x":[1,2],"y":[259,297],"text":["259","297"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Superior / Universitario incompleto","legendgroup":"Superior / Universitario incompleto","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[33,30],"x":[1,2],"y":[487,406],"text":["487","406"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(219,114,251,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Superior / Universitario completo y mas","legendgroup":"Superior / Universitario completo y mas","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[0.89999999999999991,0.90000000000000013],"base":[0,0],"x":[1,2],"y":[33,30],"text":[" 33"," 30"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,97,195,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Sin instruccion","legendgroup":"Sin instruccion","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.840182648401829,"r":7.3059360730593621,"b":37.260273972602747,"l":48.949771689497723},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Poblacion por sexo y nivel educativo","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,2.6000000000000001],"tickmode":"array","ticktext":["Mujer","Varon"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["Mujer","Varon"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Nivel educativo","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-87.800000000000011,1843.8],"tickmode":"array","ticktext":["0","500","1000","1500"],"tickvals":[0,499.99999999999994,1000,1500],"categoryorder":"array","categoryarray":["0","500","1000","1500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"n","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(51,51,51,1)","width":0,"linetype":"solid"},"yref":"paper","xref":"paper","layer":"below","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"e_nivel_desc","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"f4c616465e2":{"text":{},"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"f4c616465e2","visdat":{"f4c616465e2":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="lexis" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Lexis<a href="ggplot.html#lexis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -555,7 +555,7 @@ Fuente: Schöley &amp; Willekens (2017)</p></li>
 <span id="cb23-2"><a href="ggplot.html#cb23-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="dv">2</span>, <span class="at">alpha=</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb23-3"><a href="ggplot.html#cb23-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Edad de salida&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Densidad&quot;</span>, </span>
 <span id="cb23-4"><a href="ggplot.html#cb23-4" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;1000 casos simulados de edad de primer salida educativa&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 <p><img src="talleR_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Construyamos el diagrama de Lexis de esta cohorte utilizando <code>LexisPlotR</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="ggplot.html#cb25-1" tabindex="-1"></a><span class="co"># una forma de moverse en el tiempo: a una fecha restarle cantidad de días</span></span>
@@ -607,7 +607,7 @@ Fuente: Schöley &amp; Willekens (2017)</p></li>
 <span id="cb28-4"><a href="ggplot.html#cb28-4" tabindex="-1"></a></span>
 <span id="cb28-5"><a href="ggplot.html#cb28-5" tabindex="-1"></a><span class="co"># cargar la data</span></span>
 <span id="cb28-6"><a href="ggplot.html#cb28-6" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="ggplot.html#cb28-7" tabindex="-1"></a>df_ex_ci <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;Data/df_ex_ci.rds&quot;</span>)</span>
+<span id="cb28-7"><a href="ggplot.html#cb28-7" tabindex="-1"></a>df_ex_ci <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/df_ex_ci.rds&quot;</span>)</span>
 <span id="cb28-8"><a href="ggplot.html#cb28-8" tabindex="-1"></a><span class="fu">head</span>(df_ex_ci)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 19
 ##   code  sex     year   age    ex ex_diff ex_diff_1519 ex_2015 ex_2019 ex_2020
@@ -721,7 +721,7 @@ Fuente: Schöley &amp; Willekens (2017)</p></li>
         </div>
       </div>
 <a href="dplyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="tp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="repaso---dplyr-y-ggplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

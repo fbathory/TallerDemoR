@@ -1,6 +1,6 @@
 ---
 title:  |
-  Análisis Demográfico III - UNIDAD 0: Introducción al análisis demográfico en R
+  Taller de R aplicado al Análisis Demográfico
 author: "Ayelén Martinez, Florencia Bathory"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -30,7 +30,7 @@ Sys.setlocale("LC_ALL", "Spanish_Spain.UTF-8")
 
 ¡Bienvenidxs! `r fa("face-smile")`
 
-Este sitio web contiene los materiales para las primeras clases de Análisis Demográfico III del programa de maestría y especialización en Demografía Social ofrecido en la Universidad Nacional de Luján. **No** es una guía autoexplicada, sino un acompañamiento y soporte para la cursada.
+Este sitio web contiene los materiales para las primeras clases de Análisis Demográfico III y a las del Taller de R aplicado al Análisis Demográfico del programa de maestría y especialización en Demografía Social ofrecido en la Universidad Nacional de Luján. **No** es una guía autoexplicada, sino un acompañamiento y soporte para la cursada.
 
 Algunas cosas útiles:
 
@@ -47,7 +47,7 @@ Ayelén y Florencia
 
 ## PrepaRándonos
 
-El objetivo de estas primeras clases es que puedas dar tus primeros pasos en la herramienta y puedas aplicar allí las principales técnicas de la demografía. Luego, [Olinca Páez](https://www.researchgate.net/profile/Olinca-Paez) [`r fa("linkedin")`](https://www.linkedin.com/in/olinca-p%C3%A1ez/) tomará la posta con los contenidos específicos de Análisis Demográfico. 
+El objetivo de las primeras clases es que puedas dar tus primeros pasos en la herramienta y puedas aplicar allí las principales técnicas de la demografía. Luego, [Olinca Páez](https://www.researchgate.net/profile/Olinca-Paez) [`r fa("linkedin")`](https://www.linkedin.com/in/olinca-p%C3%A1ez/) tomará la posta con los contenidos específicos de Análisis Demográfico. 
 
 Las clases serán 100% virtuales y utilizaremos el zoom provisto anteriormente. Para nuestro primer día sería bueno tener lista tu compu en lo que atañe a la instalación del programa, de los paquetes y otras cuestiones mínimas, que si bien vamos a poder ayudarte online, nos ahorraría tiempo para comenzar con los materiales.
 

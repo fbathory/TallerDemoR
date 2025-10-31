@@ -43,3 +43,17 @@ tp
 hemos-llegado
 consigna
 fig:unnamed-chunk-9
+repaso-dplyr-y-ggplot
+bienvenidxs
+lectura-de-datos-1
+acceso-a-archivos-no-locales-1
+actividad-8
+dplyr-2
+seleccionar-select-renombrar-rename-1
+actividad-9
+resumir-summarise-por-grupos-group_by-1
+transformar-mutate-filtrar-filter-ordenar-arrange-1
+exportar-1
+actividad-10
+recursos-adicionales-1
+repaso---dplyr-y-ggplot

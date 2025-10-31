@@ -436,7 +436,7 @@ library(hrbrthemes)
 
 # cargar la data
 
-df_ex_ci <- read_rds("Data/df_ex_ci.rds")
+df_ex_ci <- readRDS("Data/df_ex_ci.rds")
 head(df_ex_ci)
 
 # crear el gráfico

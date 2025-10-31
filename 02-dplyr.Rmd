@@ -76,7 +76,7 @@ EPH_3t24_eph = get_microdata(year = 2024, period = 3, type = 'individual')
 ### Acceso a archivos no locales
 
 También podemos leer un archivo **online**, por ejemplo la base de microdatos de DEIS (Dirección de Estadísticas e Información en Salud) de defunciones para los años 2005-2022. Vayamos a la web de Datos Argentina del Ministerio de Salud de la Nación, específicamente para [Estadísticas Vitales]((http://datos.salud.gob.ar/dataset?groups=estadisticas-vitales) ), y veamos cómo obtener la dirección en la web con click derecho sobre el enlace. Tiene extensión [*.csv*](https://es.wikipedia.org/wiki/Valores_separados_por_comas). Utilicemos la función `read.csv` comentada anteriormente, pero en vez de apuntar a un archivo local hagámoslo al *url*:
-```{r}
+```{r, eval=FALSE}
 url <- "http://datos.salud.gob.ar/dataset/27c588e8-43d0-411a-a40c-7ecc563c2c9f/resource/ccf688f4-db38-4b0f-86f3-c99341ac52ad/download/defunciones-ocurridas-y-registradas-en-la-republica-argentina-entre-los-anos-2005-2022.csv"
 DEf05_22 <- read.csv(url, header = T)
 head(DEf05_22)
