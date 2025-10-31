@@ -57,3 +57,4 @@ exportar-1
 actividad-10
 recursos-adicionales-1
 repaso---dplyr-y-ggplot
+medidas-resumen-y-exploratorias
