@@ -302,3 +302,58 @@ library(openxlsx)
 write.xlsx(x = distr_coh, file = "data/export/Distribución_cohortes.xlsx")
 ```
 
+## ggplot
+
+Todo gráfico esta compuesto, jearárquicamente, por:
+
+  - **Datos**: lo que contiene (en un formato determinado) aquello que queremos visualizar. Se utilza el argumento `data`.
+    - *Capas*
+      - **Estética** determinada: ¿quién es "x"?, ¿quién es "y"?, tamaño (`size`), color (`color`) y forma (`shape`), entre otros. Para esto se utiliza la función `aes` (de *aestethics* en ingles), y permite *mapear* las columnas de la data a cada argumento.
+      - Expresión **geométrica** de los datos. Las más comunes son:
+        - Puntos (`geom_point`)  
+        - Líneas (`geom_line`)  
+        - Barras (`geom_bar`) 
+    - *Transformación* estadística (ajustar una regresión lineal, segmentar por percentiles, frecuencia de barra, etc.) 
+  - **Sistema de coordenas** y **Escalas**: las medidas relativas con las cuales interpretar los datos y su transformación visual. Personalización de ejes y leyenda, cambiar a escala logarítmica, asignar una escala de colores, etc.
+  
+Vamos a ver la distribución por edad de la EDER con **ggplot**. Para eso, primero vamos a calcular cuántas personas hay por edad. Recordemos que hay un código 9999 para valores desconocidos de edad. Aquí `%>%` también funciona aunque 
+
+::: {.take_note_box  .take_note data-latex="{take_note}"}
+*recuerden* que `ggplot` utiliza `+` en vez de ` %>% `. 
+:::
+
+```{r, message=F, warning=FALSE}
+eder_dist <- eder_personas %>% 
+  filter(p3b <= 103)|> 
+  group_by(p3b) |> 
+  summarise(n = n())
+
+# genero un primer gráfico con los tres elementos básicos:
+eder_dist |>                      # data
+  ggplot(aes(x = p3b, y = n)) +    # estética
+  geom_line()                    # geometría
+```
+Podemos separar mujeres y varones, distinguiéndolas por color y forma (en `aes()`). Y vamos a sacar a la gente sin información de sexo.
+
+```{r, message=F, warning=FALSE}
+eder_dist_s <- eder_personas %>% 
+  filter(p3b <= 103,
+         p2 %in% 1:2)|>
+  group_by(p2, p3b) |> # Agrupo también por sexo 
+  summarise(n = n())
+
+# genero un primer gráfico con los tres elementos básicos:
+eder_dist_s |> 
+  ggplot(aes(x = p3b, y = n, color = factor(p2), shape = factor(p2))) +    # estética
+  geom_line() +
+  geom_point()
+```
+
+::: {.take_note_box  .take_note data-latex="{take_note}"}
+Lo que se encuentra dentro de `ggplot()` vale para todas las capas, excepto se "pise". Por ejemplo, da el mismo plot las siguientes dos sentencias:
+`data %>% ggplot(aes(x= EDAD, y = MUJER) + geom_line()`
+que...
+`data %>% ggplot() + geom_line(aes(x= EDAD, y = MUJER))`
+pero no que...
+`data %>% ggplot(aes(x= EDAD, y = MUJER) + geom_line(aes(y = VARON))`
+:::

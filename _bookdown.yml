@@ -4,7 +4,7 @@ rmd_files:
 - 01-base.Rmd
 - 02-dplyr.Rmd
 - 03-ggplot.Rmd
-- 04-repaso.Rmd
+- 04-tp.Rmd
 language:
   ui:
     chapter_name: ""
